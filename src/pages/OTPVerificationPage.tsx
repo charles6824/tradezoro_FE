@@ -40,7 +40,7 @@ export const OTPVerificationPage = () => {
 			localStorage.setItem(
 				"crypto_auth",
 				JSON.stringify({
-					token: result.token,TradeZero
+					token: result.token,
 					user: result.user,
 				}),
 			);
