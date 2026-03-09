@@ -47,10 +47,10 @@ export const OTPVerificationPage = () => {
 
 			login(result.user);
 
-			toast({
-				title: "Registration Successful!",
-				description: "Welcome to TradeZeroTrading",
-			});
+				toast({
+					title: "Registration Successful!",
+					description: "Welcome to TradeZero",
+				});
 
 			navigate("/dashboard");
 		} catch (error: any) {

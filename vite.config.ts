@@ -10,14 +10,14 @@ export default defineConfig(({ mode }) => ({
 		port: 8080,
 		proxy: {
 			"/api": {
-				target: "https://minecrust-backend.onrender.com",
+				target: "https://TradeZero-backend.onrender.com",
 				changeOrigin: true,
 				secure: false,
 			},
 		},
 	},
 	plugins: [react(), mode === "development" && componentTagger()].filter(
-		Boolean
+		Boolean,
 	),
 	resolve: {
 		alias: {

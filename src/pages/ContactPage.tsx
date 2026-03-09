@@ -34,7 +34,7 @@ export const ContactPage = () => {
 			icon: Mail,
 			title: t("emailSupport"),
 			description: t("emailSupportDesc"),
-			contact: "support@minecrusttrading.com",
+			contact: "support@TradeZerotrading.com",
 			available: "24/7",
 		},
 		// {
@@ -92,7 +92,7 @@ export const ContactPage = () => {
 	};
 
 	const handleInputChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
 		setFormData({
 			...formData,
