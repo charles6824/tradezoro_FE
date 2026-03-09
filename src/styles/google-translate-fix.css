@@ -1,0 +1,57 @@
+/* Google Translate Widget Styles */
+.google-translate-container {
+  display: inline-block;
+  position: relative;
+}
+
+.google-translate-widget {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 30px;
+  min-width: 100px;
+}
+
+/* Override Google Translate default styles */
+.goog-te-gadget {
+  font-family: inherit !important;
+  font-size: 12px !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  font-size: 12px !important;
+}
+
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 12px !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value {
+  color: hsl(var(--foreground)) !important;
+  font-size: 12px !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Hide Google Translate banner */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.skiptranslate {
+  display: block !important;
+}

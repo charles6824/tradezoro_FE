@@ -1,0 +1,187 @@
+import { useState, useEffect } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { 
+  SidebarProvider, 
+  Sidebar, 
+  SidebarContent, 
+  SidebarGroup, 
+  SidebarGroupContent, 
+  SidebarGroupLabel, 
+  SidebarMenu, 
+  SidebarMenuButton, 
+  SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar 
+} from '@/components/ui/sidebar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/hooks/useAuth';
+import { FirstTimeSetupModal } from '@/components/FirstTimeSetupModal';
+import { LogoutConfirmDialog } from '@/components/LogoutConfirmDialog';
+import { ReliableLanguageSelector } from '@/components/ReliableLanguageSelector';
+import { LanguageSelector } from '@/components/LanguageSelector';
+import { useTranslation } from 'react-i18next';
+import { 
+  LayoutDashboard, 
+  Wallet, 
+  CreditCard, 
+  Package, 
+  TrendingUp, 
+  Settings, 
+  LogOut,
+  ChevronRight,
+  ArrowLeftRight,
+  MessageCircle
+} from 'lucide-react';
+
+const userNavItems = [
+  { title: 'dashboard', url: '/dashboard', icon: LayoutDashboard },
+  { title: 'deposit', url: '/dashboard/deposit', icon: CreditCard },
+  { title: 'withdraw', url: '/dashboard/withdrawal', icon: Wallet },
+  { title: 'transfer', url: '/dashboard/transfer', icon: ArrowLeftRight },
+  { title: 'packages', url: '/dashboard/packages', icon: Package },
+  { title: 'investments', url: '/dashboard/investments', icon: TrendingUp },
+  { title: 'chatTitle', url: '/dashboard/chat', icon: MessageCircle },
+  { title: 'settings', url: '/dashboard/settings', icon: Settings },
+];
+
+export const DashboardSidebar = () => {
+  const { user, logout } = useAuth();
+  const { state, isMobile, setOpenMobile } = useSidebar();
+  const location = useLocation();
+  const [showSetupModal, setShowSetupModal] = useState(false);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    // Check if user needs to complete profile setup
+    if (user && !user.isProfileSetup) {
+      setShowSetupModal(true);
+    }
+  }, [user]);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
+  const isActive = (path: string) => location.pathname === path;
+  const isCollapsed = state === 'collapsed';
+
+  const handleLogout = () => {
+    // Close sidebar first if on mobile
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+    logout();
+    setShowLogoutDialog(false);
+  };
+
+  const handleNavClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
+  return (
+    <Sidebar className={isCollapsed ? "w-14" : "w-64"} collapsible="icon">
+      <SidebarTrigger className="m-2 self-end" />
+      
+      <SidebarContent>
+        {/* User Profile */}
+        {!isCollapsed && (
+          <div className="p-4 border-b border-sidebar-border">
+            <div className="flex items-center space-x-3">
+              <Avatar className="w-10 h-10">
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-sidebar-foreground truncate">
+                  {user?.firstName} {user?.lastName}
+                </p>
+                <div className="flex items-center space-x-2">
+                  <p className="text-xs text-sidebar-foreground/70">
+                    ${user?.balance?.toLocaleString() || '0.00'}
+                  </p>
+                  {user?.isVerified && (
+                    <Badge variant="secondary" className="text-xs px-1 py-0">
+                      ✓ Verified
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {userNavItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <Link 
+                      to={item.url}
+                      onClick={handleNavClick}
+                      className={`flex items-center space-x-2 ${
+                        isActive(item.url) 
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                          : 'hover:bg-sidebar-accent/50'
+                      }`}
+                    >
+                      <item.icon className="w-4 h-4" />
+                      {!isCollapsed && <span>{t(item.title)}</span>}
+                      {!isCollapsed && isActive(item.url) && (
+                        <ChevronRight className="w-4 h-4 ml-auto" />
+                      )}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+              
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => {
+                    setShowLogoutDialog(true);
+                    // Don't close sidebar immediately, let the modal show first
+                  }}
+                  className="flex items-center space-x-2 text-destructive hover:bg-destructive/10"
+                >
+                  <LogOut className="w-4 h-4" />
+                  {!isCollapsed && <span>{t('logout')}</span>}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      
+      <LogoutConfirmDialog 
+        open={showLogoutDialog}
+        onOpenChange={setShowLogoutDialog}
+        onConfirm={handleLogout}
+      />
+    </Sidebar>
+  );
+};
+
+export const DashboardLayout = () => {
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <DashboardSidebar />
+        <main className="flex-1 bg-background">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="md:hidden">
+                <SidebarTrigger />
+              </div>
+              <div className="ml-auto flex items-center gap-2">
+                <LanguageSelector />
+              </div>
+            </div>
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+};

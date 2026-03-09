@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Crypto Investment Platform Design System */
+
+@layer base {
+  :root {
+    /* Dark crypto theme */
+    --background: 222 15% 8%;
+    --foreground: 210 40% 98%;
+    
+    /* Landing page colors */
+    --background-light: 245 248 247;
+    --background-dark: 15 35 24;
+
+    --card: 222 20% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 20% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 158 64% 52%;
+    --primary-foreground: 222 15% 8%;
+
+    --secondary: 222 25% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 20% 18%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 222 15% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 45%;
+    --warning: 45 93% 58%;
+    --gold: 48 100% 67%;
+
+    --border: 222 25% 20%;
+    --input: 222 25% 15%;
+    --ring: 158 64% 52%;
+
+    --radius: 0.75rem;
+
+    /* Crypto-specific colors */
+    --crypto-green: 142 71% 45%;
+    --crypto-red: 0 84% 60%;
+    --neon-cyan: 180 100% 50%;
+    --neon-purple: 270 100% 70%;
+    --bitcoin-orange: 25 95% 53%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-hero: linear-gradient(135deg, hsl(222 15% 8%), hsl(222 25% 12%));
+    --gradient-card: linear-gradient(145deg, hsl(222 20% 12%), hsl(222 25% 15%));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--neon-cyan) / 0.2), hsl(var(--neon-purple) / 0.2));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 8px 32px hsl(222 15% 4% / 0.4);
+    --shadow-neon: 0 0 20px hsl(var(--accent) / 0.5);
+
+    /* Animation values */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Sidebar theme for crypto dashboard */
+    --sidebar-background: 222 20% 10%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 158 64% 52%;
+    --sidebar-primary-foreground: 222 15% 8%;
+    --sidebar-accent: 222 25% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 25% 20%;
+    --sidebar-ring: 158 64% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Custom scrollbar for crypto theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent;
+  }
+}
+
+@layer components {
+  /* Crypto-specific utility classes */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-neon {
+    box-shadow: var(--shadow-neon);
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .gradient-glow {
+    background: var(--gradient-glow);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  /* Animated number counter */
+  .counter {
+    @apply transition-smooth;
+  }
+
+  /* Crypto price ticker animation */
+  .ticker {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Pulse animation for live indicators */
+  .pulse-dot {
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Glow hover effect */
+  .hover-glow {
+    @apply transition-smooth;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Crypto card hover effect */
+  .crypto-card {
+    @apply transition-smooth gradient-card;
+    border: 1px solid hsl(var(--border));
+  }
+
+  .crypto-card:hover {
+    border-color: hsl(var(--primary));
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+    transform: translateY(-4px);
+  }
+  
+  /* Glass card effect for landing page */
+  .glass-card {
+    background: rgba(15, 35, 24, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 189, 85, 0.1);
+  }
+}
+
+@layer utilities {
+  /* Text gradients */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-glow {
+    background: var(--gradient-glow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Crypto status colors */
+  .text-crypto-green {
+    color: hsl(var(--crypto-green));
+  }
+
+  .text-crypto-red {
+    color: hsl(var(--crypto-red));
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .text-neon-cyan {
+    color: hsl(var(--neon-cyan));
+  }
+
+  .text-neon-purple {
+    color: hsl(var(--neon-purple));
+  }
+
+  .bg-crypto-green {
+    background-color: hsl(var(--crypto-green));
+  }
+
+  .bg-crypto-red {
+    background-color: hsl(var(--crypto-red));
+  }
+
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+}

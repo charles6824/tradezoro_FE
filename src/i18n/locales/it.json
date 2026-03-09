@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "investments": "Investimenti",
+    "transactions": "Transazioni",
+    "settings": "Impostazioni",
+    "about": "Chi siamo",
+    "logout": "Esci"
+  },
+  "auth": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "Nome",
+    "lastName": "Cognome"
+  },
+  "dashboard": {
+    "balance": "Saldo",
+    "totalInvested": "Totale investito",
+    "totalEarnings": "Guadagni totali",
+    "activeInvestments": "Investimenti attivi"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "submit": "Invia",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "confirm": "Conferma"
+  }
+}
