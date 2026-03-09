@@ -280,7 +280,7 @@ const TermsOfService = () => {
 									<div>
 										<h4 className="font-semibold mb-2">Legal Department</h4>
 										<p className="text-sm text-muted-foreground">
-											legal@minecrusttrading.com
+											legal@TradeZerotrading.com
 										</p>
 									</div>
 									<div>
