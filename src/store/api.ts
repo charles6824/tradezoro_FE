@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: `${
-		import.meta.env.VITE_API_URL ?? "https://TradeZero-backend.onrender.com"
+		import.meta.env.VITE_API_URL ?? "https://tradezero-be.onrender.com"
 	}/api`,
 	prepareHeaders: (headers, { getState }) => {
 		const token = localStorage.getItem("crypto_auth");

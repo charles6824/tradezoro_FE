@@ -116,7 +116,8 @@ const LoginPage = () => {
 										</div>
 										<input
 											className="block w-full pl-11 pr-4 h-14 bg-white dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-primary/30 transition-all"
-											placeholder="name@company.com"
+                      placeholder="name@company.com"
+                      name="email"
 											type="email"
 											value={formData.email}
 											onChange={handleInputChange}
@@ -144,7 +145,8 @@ const LoginPage = () => {
 										</div>
 										<input
 											className="block w-full pl-11 pr-12 h-14 bg-white dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-primary/30 transition-all"
-											placeholder="••••••••"
+                      placeholder="••••••••"
+                      name="password"
 											type={showPassword ? "text" : "password"}
 											value={formData.password}
 											onChange={handleInputChange}
