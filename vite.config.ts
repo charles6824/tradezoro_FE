@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
 		port: 8080,
 		proxy: {
 			"/api": {
-				target: "https://TradeZero-backend.onrender.com",
+				target: "https://tradezero-be.onrender.com",
 				changeOrigin: true,
 				secure: false,
 			},
