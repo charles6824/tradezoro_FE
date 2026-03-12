@@ -38,7 +38,8 @@ const AdminPaymentConfigPage = () => {
   const fetchPaymentConfig = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/settings/payment-addresses', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
+      const response = await fetch(`${apiUrl}/api/settings/payment-addresses`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -66,7 +67,8 @@ const AdminPaymentConfigPage = () => {
       if (files.solana_barcode) formData.append('solana_barcode', files.solana_barcode);
       if (files.trx_barcode) formData.append('trx_barcode', files.trx_barcode);
 
-      const response = await fetch('/api/admin/payment-config', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
+      const response = await fetch(`${apiUrl}/api/admin/payment-config`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
