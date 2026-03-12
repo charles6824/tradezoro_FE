@@ -133,7 +133,7 @@ export const AdminTransactionsPage = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h1 className="text-3xl font-bold text-foreground">Transaction Management</h1>
         <Badge variant="secondary" className="px-3 py-1">
           {filteredTransactions.length} Transactions
@@ -149,8 +149,8 @@ export const AdminTransactionsPage = () => {
           <CardDescription>Review, approve, and manage all platform transactions</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="relative flex-1">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4">
+            <div className="relative flex-1 w-full">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search by user ID or method..."

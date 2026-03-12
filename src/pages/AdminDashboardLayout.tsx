@@ -38,6 +38,7 @@ const adminNavItems = [
   { title: 'Packages', url: '/admin/packages', icon: Package },
   { title: 'Fund Users', url: '/admin/fund', icon: DollarSign },
   { title: 'Payment Config', url: '/admin/payment-config', icon: Wallet },
+  { title: 'Referrals', url: '/admin/referrals', icon: Users },
   { title: 'Chat', url: '/admin/chat', icon: MessageCircle },
   { title: 'Reports', url: '/admin/reports', icon: FileText },
   { title: 'Settings', url: '/admin/settings', icon: Settings },
@@ -136,8 +137,9 @@ export const AdminDashboardLayout = () => {
         <AdminDashboardSidebar />
         <main className="flex-1 bg-background">
           <div className="p-6">
-            <div className="md:hidden mb-4">
+            <div className="md:hidden mb-4 flex items-center gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700 w-fit">
               <SidebarTrigger />
+              <span className="text-sm font-bold text-slate-700 dark:text-slate-300 pr-2">Menu</span>
             </div>
             <Outlet />
           </div>

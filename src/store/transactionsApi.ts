@@ -16,7 +16,7 @@ export const transactionsApi = api.injectEndpoints({
     >({
       query: (params) => ({
         url: '/transactions',
-        params,
+        params: params || undefined, // use undefined for optional params to satisfy Record type better, or {} 
       }),
       providesTags: ['Transaction'],
     }),
@@ -40,6 +40,16 @@ export const transactionsApi = api.injectEndpoints({
         url: '/transactions/deposit',
         method: 'POST',
         body: depositData,
+      }),
+      invalidatesTags: ['Transaction'],
+    }),
+    cancelTransaction: builder.mutation<
+      { success: boolean; message: string },
+      string
+    >({
+      query: (id) => ({
+        url: `/transactions/${id}/cancel`,
+        method: 'PUT',
       }),
       invalidatesTags: ['Transaction'],
     }),
@@ -80,6 +90,7 @@ export const {
   useGetTransactionsQuery,
   useGetTransactionQuery,
   useCreateDepositMutation,
+  useCancelTransactionMutation,
   useCreateWithdrawalMutation,
   useGetTransactionStatsQuery,
 } = transactionsApi;

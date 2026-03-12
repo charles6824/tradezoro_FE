@@ -129,8 +129,8 @@ export const AdminInvestmentsPage = () => {
           <CardDescription>Monitor and manage user investments and ROI completion</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="relative flex-1">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4">
+            <div className="relative flex-1 w-full">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search by user ID or investment ID..."

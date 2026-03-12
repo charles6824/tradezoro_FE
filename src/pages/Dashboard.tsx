@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/hooks/useAuth';
 import { useGetUserBalanceQuery, useGetUserProfileQuery } from '@/store/userApi';
 import { useGetInvestmentsQuery, useGetInvestmentStatsQuery } from '@/store/investmentsApi';
-import { useGetTransactionsQuery } from '@/store/transactionsApi';
+import { useGetTransactionsQuery, useCancelTransactionMutation } from '@/store/transactionsApi';
 import { mockCryptoPrices } from '@/utils/mockData';
 import ProfileSetupModal from '@/components/ProfileSetupModal';
 import { useTranslation } from 'react-i18next';
@@ -39,6 +39,7 @@ export const Dashboard = () => {
   const [showSetupModal, setShowSetupModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [cancelTransaction, { isLoading: isCanceling }] = useCancelTransactionMutation();
   const [animatedValues, setAnimatedValues] = useState({
     balance: 0,
     totalInvested: 0,
@@ -87,6 +88,16 @@ export const Dashboard = () => {
       await navigator.clipboard.writeText(currentUser.walletId);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleCancel = async (id: string) => {
+    if (!confirm('Are you sure you want to cancel this pending transaction?')) return;
+    try {
+      await cancelTransaction(id).unwrap();
+      // Optional toast here if imported, but avoiding extra imports to keep it simple and clean
+    } catch (error) {
+      console.error('Failed to cancel transaction:', error);
     }
   };
 
@@ -154,7 +165,7 @@ export const Dashboard = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-foreground">
             {t('welcomeBack')}, {user?.firstName}! 👋
@@ -393,7 +404,7 @@ export const Dashboard = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right flex flex-col items-end gap-1">
                     <p className={`font-medium ${
                       transaction.type === 'deposit' || transaction.type === 'return' 
                         ? 'text-crypto-green' 
@@ -402,15 +413,26 @@ export const Dashboard = () => {
                       {transaction.type === 'deposit' || transaction.type === 'return' ? '+' : ''}
                       ${transaction.amount.toLocaleString()}
                     </p>
-                    <Badge 
-                      variant={
-                        transaction.status === 'approved' ? 'secondary' :
-                        transaction.status === 'pending' ? 'outline' : 'destructive'
-                      }
-                      className="text-xs"
-                    >
-                      {transaction.status}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                       {transaction.status === 'pending' && (
+                         <button
+                           onClick={() => handleCancel(transaction._id)}
+                         disabled={isCanceling}
+                         className="text-xs text-red-500 hover:text-red-400 font-medium"
+                       >
+                         Cancel
+                         </button>
+                      )}
+                      <Badge 
+                        variant={
+                          transaction.status === 'approved' ? 'secondary' :
+                          transaction.status === 'pending' ? 'outline' : 'destructive'
+                        }
+                        className="text-xs"
+                      >
+                        {transaction.status}
+                      </Badge>
+                    </div>
                   </div>
                 </div>
               ))
