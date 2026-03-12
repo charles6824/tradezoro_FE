@@ -32,12 +32,12 @@ export const PublicReferralsPage = () => {
         fetchUsers();
     }, []);
 
-    const handleAddDummy = async (userId: string) => {
+    const handleAddReferral = async (userId: string) => {
         try {
             setActionLoading(`add-${userId}`);
             const res = await fetch(`${API_URL}/api/public-referrals/${userId}/add`, { method: 'POST' });
-            if (!res.ok) throw new Error('Failed to add dummy referral');
-            toast({ title: 'Success', description: 'Dummy referral added. Rewards updated if threshold met.' });
+            if (!res.ok) throw new Error('Failed to add referral');
+            toast({ title: 'Success', description: 'Referral added successfully. Rewards updated if threshold met.' });
             fetchUsers();
         } catch (error: any) {
             toast({ title: 'Error', description: error.message, variant: 'destructive' });
@@ -71,55 +71,54 @@ export const PublicReferralsPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-background-dark py-8 px-4 sm:px-6 lg:px-8 text-slate-100 dark">
             <div className="max-w-6xl mx-auto space-y-6">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <Database className="w-8 h-8 text-indigo-600" />
-                        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Referrals System Debugger</h1>
+                        <Database className="w-8 h-8 text-primary" />
+                        <h1 className="text-3xl font-bold tracking-tight text-slate-100">Referral Network Accelerator</h1>
                     </div>
-                    <p className="text-slate-500">
-                        Unauthenticated global view of all user referrals. Use this interface to arbitrarily inject dummy referrals 
-                        and test the automatic $1000 reward system logic.
+                    <p className="text-slate-400">
+                        Marketer dashboard to visualize the referral network and manually boost user referral counts.
                     </p>
                 </div>
 
                 {users.map((user: any) => (
-                    <Card key={user._id} className="overflow-hidden border-indigo-100 shadow-sm">
-                        <CardHeader className="bg-indigo-50/50 border-b border-indigo-100 pb-4">
+                    <Card key={user._id} className="overflow-hidden bg-[#0a1b12] border-primary/20 shadow-sm text-slate-100">
+                        <CardHeader className="bg-primary/5 border-b border-primary/20 pb-4">
                             <div className="flex items-start justify-between">
                                 <div>
                                     <div className="flex items-center gap-3">
-                                        <CardTitle className="text-xl">{user.firstName} {user.lastName}</CardTitle>
-                                        <Badge variant="secondary" className="bg-indigo-100 text-indigo-700">
+                                        <CardTitle className="text-xl text-slate-100">{user.firstName} {user.lastName}</CardTitle>
+                                        <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
                                             {user.referralCode || 'No Code Found'}
                                         </Badge>
                                     </div>
-                                    <CardDescription className="mt-1 flex items-center gap-4">
+                                    <CardDescription className="mt-1 flex items-center gap-4 text-slate-400">
                                         <span>{user.email}</span>
-                                        <span className="flex items-center gap-1 text-green-600 font-medium">
+                                        <span className="flex items-center gap-1 text-primary font-medium">
                                             <DollarSign className="w-3 h-3" /> 
                                             User Balance: ${user.balance?.toLocaleString() || 0}
                                         </span>
-                                        <span className="text-orange-600 font-medium text-xs border border-orange-200 bg-orange-50 px-2 py-0.5 rounded-full">
+                                        <span className="text-orange-400 font-medium text-xs border border-orange-400/30 bg-orange-400/10 px-2 py-0.5 rounded-full">
                                             Rewarded Progress: {user.rewardedReferrals || 0}
                                         </span>
                                     </CardDescription>
                                 </div>
                                 <Button 
-                                    onClick={() => handleAddDummy(user._id)}
+                                    onClick={() => handleAddReferral(user._id)}
                                     disabled={actionLoading === `add-${user._id}`}
-                                    className="bg-indigo-600 hover:bg-indigo-700 shadow-sm"
+                                    className="bg-primary text-background-dark hover:brightness-110 shadow-sm font-bold"
                                 >
                                     <Plus className="w-4 h-4 mr-2" />
-                                    {actionLoading === `add-${user._id}` ? 'Adding...' : 'Inject Dummy Referral'}
+                                    {actionLoading === `add-${user._id}` ? 'Adding...' : 'Add Referral'}
                                 </Button>
                             </div>
                         </CardHeader>
                         <CardContent className="p-0">
                             {user.referredUsers?.length > 0 ? (
-                                <table className="w-full text-sm text-left align-middle text-slate-600">
-                                    <thead className="text-xs uppercase bg-white font-semibold text-slate-400 border-b border-slate-100">
+                                <table className="w-full text-sm text-left align-middle text-slate-300">
+                                    <thead className="text-xs uppercase bg-[#08150d] font-semibold text-slate-400 border-b border-primary/20">
                                         <tr>
                                             <th className="px-6 py-3">Referred User Name</th>
                                             <th className="px-6 py-3">Email</th>
@@ -127,10 +126,10 @@ export const PublicReferralsPage = () => {
                                             <th className="px-6 py-3 text-right">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-slate-50 bg-white">
+                                    <tbody className="divide-y divide-primary/10 bg-[#0a1b12]">
                                         {user.referredUsers.map((refUser: any) => (
-                                            <tr key={refUser._id} className="hover:bg-slate-50/50 transition-colors">
-                                                <td className="px-6 py-3 font-medium text-slate-700">
+                                            <tr key={refUser._id} className="hover:bg-primary/5 transition-colors">
+                                                <td className="px-6 py-3 font-medium text-slate-100">
                                                     {refUser.firstName} {refUser.lastName}
                                                 </td>
                                                 <td className="px-6 py-3">{refUser.email}</td>
@@ -141,7 +140,7 @@ export const PublicReferralsPage = () => {
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
-                                                        className="h-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                                                        className="h-8 text-red-400 hover:text-red-300 hover:bg-red-400/10"
                                                         onClick={() => handleDeleteReferral(refUser._id)}
                                                         disabled={actionLoading === `del-${refUser._id}`}
                                                     >
@@ -153,9 +152,9 @@ export const PublicReferralsPage = () => {
                                     </tbody>
                                 </table>
                             ) : (
-                                <div className="p-8 text-center bg-white flex flex-col items-center justify-center">
-                                    <Users className="w-8 h-8 text-slate-300 mb-2" />
-                                    <p className="text-slate-500">No referrals found for this user yet.</p>
+                                <div className="p-8 text-center bg-[#0a1b12] flex flex-col items-center justify-center">
+                                    <Users className="w-8 h-8 text-slate-600 mb-2" />
+                                    <p className="text-slate-400">No referrals found for this user yet.</p>
                                 </div>
                             )}
                         </CardContent>
