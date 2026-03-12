@@ -55,7 +55,7 @@ const MiningSection = () => {
 									Cloud Mining
 								</div>
 								<Link
-									to="/register"
+									to="/login"
 									className="inline-flex items-center justify-center bg-background-dark text-white rounded-full w-10 h-10"
 								>
 									{/* SVG Arrow */}
@@ -93,7 +93,7 @@ const MiningSection = () => {
 									Cloud Mining
 								</div>
 								<Link
-									to="/register"
+									to="/login"
 									className="inline-flex items-center justify-center bg-background-dark  text-white rounded-full w-10 h-10"
 								>
 									<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -129,8 +129,8 @@ const MiningSection = () => {
 								<div className="mb-4 text-green-500 font-semibold">
 									$1 <span className="text-green-400">0%</span>
 								</div>
-								<a
-									href="https://user.abcmining.pro/register"
+								<Link
+									to="/login"
 									className="inline-flex items-center justify-center bg-background-dark text-white rounded-full w-10 h-10"
 								>
 									<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -149,7 +149,7 @@ const MiningSection = () => {
 											strokeLinejoin="round"
 										/>
 									</svg>
-								</a>
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -172,7 +172,7 @@ const MiningSection = () => {
 						</div>
 						<div className="w-full">
               <div>
-                <div className="mt-4 bg-background-dark text-white w-[35%] px-3 py-1 rounded-full inline-block mb-4">
+                <div className="mt-4 bg-background-dark text-white md:w-[35%] px-3 py-1 rounded-full inline-block mb-4">
 									<h6 className="font-semibold">Reliable Infrastructure</h6>
 								</div>
 								<h3 className="text-2xl font-bold mb-4">

@@ -24,40 +24,24 @@ export const LandingFooter = () => {
               </a>
             </div> */}
           </div>
-          <div>
-            <h5 className="font-bold text-slate-100 mb-6 uppercase text-xs tracking-widest">Platforms</h5>
-            <ul className="space-y-4 text-sm text-slate-500">
-              <li><Link className="hover:text-primary transition-colors" to="#">ZeroPro</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">ZeroWeb</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">ZeroMobile</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">ZeroFree</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-bold text-slate-100 mb-6 uppercase text-xs tracking-widest">Pricing</h5>
-            <ul className="space-y-4 text-sm text-slate-500">
-              <li><Link className="hover:text-primary transition-colors" to="#">Commissions</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Platform Fees</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Short Locates</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Margin Rates</Link></li>
-            </ul>
-          </div>
+          
+          
           <div>
             <h5 className="font-bold text-slate-100 mb-6 uppercase text-xs tracking-widest">Support</h5>
             <ul className="space-y-4 text-sm text-slate-500">
-              <li><Link className="hover:text-primary transition-colors" to="#">FAQ</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Contact Us</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Training</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Status</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">FAQ</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">Contact Us</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">Training</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">Status</Link></li>
             </ul>
           </div>
           <div>
             <h5 className="font-bold text-slate-100 mb-6 uppercase text-xs tracking-widest">Company</h5>
             <ul className="space-y-4 text-sm text-slate-500">
-              <li><Link className="hover:text-primary transition-colors" to="#">About Us</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">News</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Careers</Link></li>
-              <li><Link className="hover:text-primary transition-colors" to="#">Compliance</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">About Us</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">News</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">Careers</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/login">Compliance</Link></li>
             </ul>
           </div>
         </div>

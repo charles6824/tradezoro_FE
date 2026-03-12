@@ -244,9 +244,10 @@ export const RegisterPage = () => {
 								</div>
 								<button
 									className="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold text-lg h-14 rounded-xl transition-all shadow-lg shadow-primary/20"
-									type="submit"
+                  type="submit"
+                  disabled={isLoading}
 								>
-									Create Account
+									{isLoading ? "Creating Account..." : "Create Account"}
 								</button>
 							</form>
 						</div>
