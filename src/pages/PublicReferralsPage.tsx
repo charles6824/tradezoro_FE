@@ -206,7 +206,7 @@ export const PublicReferralsPage = () => {
                         {currentUsers.map((user: any) => (
                             <Card key={user._id} className="overflow-hidden bg-[#0a1b12] border-primary/20 shadow-sm text-slate-100">
                                 <CardHeader className="bg-primary/5 border-b border-primary/20 pb-4">
-                                    <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                         <div className="flex-1 w-full overflow-hidden">
                                             <div className="flex items-center gap-3 mb-1">
                                                 <CardTitle className="text-xl text-slate-100 truncate">{user.firstName} {user.lastName}</CardTitle>
@@ -215,24 +215,26 @@ export const PublicReferralsPage = () => {
                                                 </Badge>
                                             </div>
                                             <CardDescription className="flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-400">
-                                                <span className="truncate">{user.email}</span>
+                                                <span className="truncate w-full sm:w-auto block">{user.email}</span>
                                                 <span className="flex items-center gap-1 text-primary font-medium shrink-0">
                                                     <DollarSign className="w-3 h-3" /> 
-                                                    User Balance: ${user.balance?.toLocaleString() || 0}
+                                                    Balance: ${user.balance?.toLocaleString() || 0}
                                                 </span>
                                                 <span className="text-orange-400 font-medium text-xs border border-orange-400/30 bg-orange-400/10 px-2 py-0.5 rounded-full shrink-0">
-                                                    Rewarded Progress: {user.rewardedReferrals || 0} / {user.referredUsers?.length || 0}
+                                                    Rewarded: {user.rewardedReferrals || 0} / {user.referredUsers?.length || 0}
                                                 </span>
                                             </CardDescription>
                                         </div>
-                                        <Button 
-                                            onClick={() => handleAddReferral(user._id)}
-                                            disabled={actionLoading === `add-${user._id}`}
-                                            className="bg-primary text-background-dark hover:brightness-110 shadow-sm font-bold w-full sm:w-auto shrink-0"
-                                        >
-                                            <Plus className="w-4 h-4 mr-2" />
-                                            {actionLoading === `add-${user._id}` ? 'Adding...' : 'Add Referral'}
-                                        </Button>
+                                        <div className="w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
+                                            <Button 
+                                                onClick={() => handleAddReferral(user._id)}
+                                                disabled={actionLoading === `add-${user._id}`}
+                                                className="bg-primary text-background-dark hover:brightness-110 shadow-sm font-bold w-full sm:w-auto"
+                                            >
+                                                <Plus className="w-4 h-4 mr-2" />
+                                                {actionLoading === `add-${user._id}` ? 'Adding...' : 'Add Referral'}
+                                            </Button>
+                                        </div>
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-0 overflow-x-auto">

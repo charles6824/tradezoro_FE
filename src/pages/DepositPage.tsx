@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
-import { Copy, Wallet, Clock, Coins } from 'lucide-react';
+import { Copy, Wallet, Clock, Coins, AlertCircle } from 'lucide-react';
 import { useGetTransactionsQuery, useCreateDepositMutation, useCancelTransactionMutation } from '@/store/transactionsApi';
 
 interface CryptoMethod {
@@ -33,8 +33,7 @@ export const DepositPage = () => {
   
   // N-length array mapping active coins
   const [methods, setMethods] = useState<CryptoMethod[]>([]);
-
-  const minDeposit = 100;
+  const [minDeposit, setMinDeposit] = useState<number>(100);
   const transactions = transactionsData.data || [];
 
   useEffect(() => {
@@ -44,7 +43,19 @@ export const DepositPage = () => {
   const fetchPaymentConfig = async () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
-      const response = await fetch(`${apiUrl}/api/settings/payment-addresses`);
+      
+      const [response, settingsResponse] = await Promise.all([
+          fetch(`${apiUrl}/api/settings/payment-addresses`),
+          fetch(`${apiUrl}/api/settings`)
+      ]);
+
+      if (settingsResponse.ok) {
+          const settingsObj = await settingsResponse.json();
+          if (settingsObj?.data?.minDepositAmount) {
+              setMinDeposit(Number(settingsObj.data.minDepositAmount));
+          }
+      }
+
       if (response.ok) {
         const data = await response.json();
         

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -28,6 +29,7 @@ import {
 
 export const Dashboard = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { data: balanceData, refetch: refetchBalance } = useGetUserBalanceQuery();
   const { data: userProfileData, refetch: refetchProfile } = useGetUserProfileQuery();
@@ -158,7 +160,11 @@ export const Dashboard = () => {
       icon: Activity,
       color: 'text-neon-cyan',
       bgColor: 'bg-neon-cyan/10',
-      description: 'Currently running'
+      description: 'Currently running',
+      onClick: () => {
+          const el = document.getElementById('active-investments-section');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   ];
 
@@ -173,6 +179,14 @@ export const Dashboard = () => {
           <p className="text-muted-foreground mt-1">
             Here's your investment overview for today
           </p>
+          <div className="flex flex-wrap gap-3 mt-4">
+            <Button onClick={() => navigate('/dashboard/deposit')} className="bg-primary hover:brightness-110 text-background-dark font-bold shadow-sm">
+              Deposit
+            </Button>
+            <Button onClick={() => navigate('/dashboard/investments/packages')} variant="outline" className="border-primary/50 text-foreground hover:bg-primary/5 font-medium shadow-sm border-2">
+              Invest Now
+            </Button>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           <Button
@@ -224,7 +238,11 @@ export const Dashboard = () => {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statsData.map((stat, index) => (
-          <Card key={index} className="crypto-card">
+          <Card 
+            key={index} 
+            className={`crypto-card ${stat.onClick ? 'cursor-pointer hover:border-primary/30 transition-colors' : ''}`}
+            onClick={stat.onClick}
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 {stat.title}
@@ -294,7 +312,7 @@ export const Dashboard = () => {
         </Card>
 
         {/* Active Investments */}
-        <Card className="crypto-card">
+        <Card id="active-investments-section" className="crypto-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-primary" />
