@@ -16,7 +16,7 @@ export const NextLevelTradingSection = () => {
             Trusted by Over 100,000 Clients: Lightning-Fast Trades, Low Fees and an Exceptional Trading Experience.
           </p>
           <div className="flex flex-col sm:flex-row gap-5">
-            <Link to="/register" className="px-8 py-4 bg-primary text-background-dark rounded-xl font-bold text-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+            <Link to="/login" className="px-8 py-4 bg-primary text-background-dark rounded-xl font-bold text-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
               Start Trading <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
             <button className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
