@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { 
+    useGetAdminReferralsQuery, 
+    useUpdateAdminReferralMutation, 
+    useDeleteAdminReferralMutation 
+} from '@/store/referralsApi';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,81 +15,15 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Badge } from '@/components/ui/badge';
 import { Edit2, Trash2, Users } from 'lucide-react';
 
-const fetchAdminReferrals = async () => {
-    const token = localStorage.getItem('crypto_auth');
-    const authData = token && token !== 'null' ? JSON.parse(token) : null;
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com'}/api/referrals/admin`, {
-        headers: {
-            Authorization: `Bearer ${authData?.token || token}`
-        }
-    });
-    if (!res.ok) throw new Error('Failed to fetch referrals');
-    return res.json();
-};
-
-const updateAdminReferral = async ({ userId, referralCode }: { userId: string, referralCode: string }) => {
-    const token = localStorage.getItem('crypto_auth');
-    const authData = token && token !== 'null' ? JSON.parse(token) : null;
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com'}/api/referrals/admin/${userId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authData?.token || token}`
-        },
-        body: JSON.stringify({ referralCode })
-    });
-    if (!res.ok) {
-        const d = await res.json();
-        throw new Error(d.message || 'Failed to update referral code');
-    }
-    return res.json();
-};
-
-const deleteAdminReferral = async (userId: string) => {
-    const token = localStorage.getItem('crypto_auth');
-    const authData = token && token !== 'null' ? JSON.parse(token) : null;
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com'}/api/referrals/admin/${userId}`, {
-        method: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${authData?.token || token}`
-        }
-    });
-    if (!res.ok) throw new Error('Failed to delete referral code');
-    return res.json();
-};
-
 export const AdminReferralsPage = () => {
-    const { data, isLoading, error } = useQuery({ queryKey: ['adminReferrals'], queryFn: fetchAdminReferrals });
-    const queryClient = useQueryClient();
+    const { data, isLoading, error } = useGetAdminReferralsQuery();
+    const [updateAdminReferral, { isLoading: isUpdating }] = useUpdateAdminReferralMutation();
+    const [deleteAdminReferral] = useDeleteAdminReferralMutation();
     const { toast } = useToast();
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
     const [newReferralCode, setNewReferralCode] = useState('');
-
-    const updateMutation = useMutation({
-        mutationFn: updateAdminReferral,
-        onSuccess: () => {
-             toast({ title: 'Success', description: 'Referral code updated successfully' });
-             queryClient.invalidateQueries({ queryKey: ['adminReferrals'] });
-             setIsEditModalOpen(false);
-             setNewReferralCode('');
-        },
-        onError: (err: any) => {
-             toast({ title: 'Error', description: err.message, variant: 'destructive' });
-        }
-    });
-
-    const deleteMutation = useMutation({
-        mutationFn: deleteAdminReferral,
-        onSuccess: () => {
-             toast({ title: 'Success', description: 'Referral code deleted successfully' });
-             queryClient.invalidateQueries({ queryKey: ['adminReferrals'] });
-        },
-        onError: (err: any) => {
-             toast({ title: 'Error', description: err.message, variant: 'destructive' });
-        }
-    });
 
     const openEditModal = (user: any) => {
         setSelectedUser(user);
@@ -93,17 +31,29 @@ export const AdminReferralsPage = () => {
         setIsEditModalOpen(true);
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         if (!newReferralCode.trim()) {
             toast({ title: 'Validation Error', description: 'Code cannot be empty', variant: 'destructive' });
             return;
         }
-        updateMutation.mutate({ userId: selectedUser._id, referralCode: newReferralCode.trim() });
+        try {
+            await updateAdminReferral({ userId: selectedUser._id, referralCode: newReferralCode.trim() }).unwrap();
+            toast({ title: 'Success', description: 'Referral code updated successfully' });
+            setIsEditModalOpen(false);
+            setNewReferralCode('');
+        } catch (err: any) {
+             toast({ title: 'Error', description: err.data?.message || err.message, variant: 'destructive' });
+        }
     };
 
-    const handleDelete = (userId: string) => {
+    const handleDelete = async (userId: string) => {
         if (confirm('Are you sure you want to delete this referral code? This cannot be undone.')) {
-            deleteMutation.mutate(userId);
+            try {
+                await deleteAdminReferral(userId).unwrap();
+                toast({ title: 'Success', description: 'Referral code deleted successfully' });
+            } catch (err: any) {
+                toast({ title: 'Error', description: err.data?.message || err.message, variant: 'destructive' });
+            }
         }
     };
 
@@ -230,8 +180,8 @@ export const AdminReferralsPage = () => {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Cancel</Button>
-                        <Button onClick={handleUpdate} disabled={updateMutation.isPending}>
-                            {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
+                        <Button onClick={handleUpdate} disabled={isUpdating}>
+                            {isUpdating ? 'Saving...' : 'Save Changes'}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

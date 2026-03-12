@@ -25,7 +25,7 @@ const baseQuery = fetchBaseQuery({
 export const api = createApi({
 	reducerPath: "api",
 	baseQuery,
-	tagTypes: ["User", "Package", "Investment", "Transaction", "Admin"],
+	tagTypes: ["User", "Package", "Investment", "Transaction", "Admin", "Referrals", "ReferralsAdmin"],
 	keepUnusedDataFor: 300, // Keep data for 5 minutes
 	refetchOnMountOrArgChange: 60, // Only refetch if data is older than 1 minute
 	refetchOnFocus: false, // Disable refetch on window focus
