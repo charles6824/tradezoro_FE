@@ -163,18 +163,26 @@ const LoginPage = () => {
 										</button>
 									</div>
 								</div>
-								<div className="flex items-center space-x-2 ml-1">
-									<input
-										className="w-4 h-4 rounded border-slate-300 dark:border-primary/40 text-primary focus:ring-primary bg-transparent"
-										id="remember"
-										type="checkbox"
-									/>
-									<label
-										className="text-sm text-slate-600 dark:text-slate-400"
-										htmlFor="remember"
+								<div className="flex justify-between items-center ml-1">
+									<div className="flex items-center space-x-2">
+										<input
+											className="w-4 h-4 rounded border-slate-300 dark:border-primary/40 text-primary focus:ring-primary bg-transparent"
+											id="remember"
+											type="checkbox"
+										/>
+										<label
+											className="text-sm text-slate-600 dark:text-slate-400"
+											htmlFor="remember"
+										>
+											Keep me logged in
+										</label>
+									</div>
+									<Link
+										className="text-sm font-bold text-primary hover:underline"
+										to="/register"
 									>
-										Keep me logged in
-									</label>
+										Create an account
+									</Link>
 								</div>
 								<button
 									className="w-full flex items-center justify-center gap-2 h-14 bg-primary text-background-dark font-black text-lg rounded-xl hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
