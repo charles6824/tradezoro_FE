@@ -24,6 +24,7 @@ import { WithdrawalPage } from "./pages/WithdrawalPage";
 import { PackagesPage } from "./pages/PackagesPage";
 import { InvestmentsPage } from "./pages/InvestmentsPage";
 import { SettingsPage } from "./pages/SettingsPage";
+import { ReferralsPage } from "./pages/ReferralsPage";
 import NotFound from "./pages/NotFound";
 import { AdminUsersPage } from "./pages/AdminUsersPage";
 import { AdminTransactionsPage } from "./pages/AdminTransactionsPage";
@@ -34,6 +35,7 @@ import { AdminFundPage } from "./pages/AdminFundPage";
 import { AdminReportsPage } from "./pages/AdminReportsPage";
 import { AdminSettingsPage } from "./pages/AdminSettingsPage";
 import AdminPaymentConfigPage from "./pages/AdminPaymentConfigPage";
+import { AdminReferralsPage } from "./pages/AdminReferralsPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RiskDisclaimer from "./pages/RiskDisclaimer";
@@ -162,6 +164,7 @@ const App = () => (
 						<Route path="packages" element={<PackagesPage />} />
 						<Route path="investments" element={<InvestmentsPage />} />
 						<Route path="chat" element={<ChatPage />} />
+						<Route path="referrals" element={<ReferralsPage />} />
 						<Route path="settings" element={<SettingsPage />} />
 					</Route>
 
@@ -186,6 +189,7 @@ const App = () => (
 						<Route path="fund" element={<AdminFundPage />} />
 						<Route path="chat" element={<AdminChatPage />} />
 						<Route path="reports" element={<AdminReportsPage />} />
+						<Route path="referrals" element={<AdminReferralsPage />} />
 						<Route path="settings" element={<AdminSettingsPage />} />
 						<Route path="payment-config" element={<AdminPaymentConfigPage />} />
 					</Route>

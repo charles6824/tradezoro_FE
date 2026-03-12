@@ -16,7 +16,7 @@ export const authApi = api.injectEndpoints({
     }),
     register: builder.mutation<
       { success: boolean; message: string; tempToken: string },
-      { email: string; password: string; firstName: string; lastName: string }
+      { email: string; password: string; firstName: string; lastName: string; referralCode?: string }
     >({
       query: (userData) => ({
         url: '/auth/register',

@@ -31,7 +31,8 @@ import {
   LogOut,
   ChevronRight,
   ArrowLeftRight,
-  MessageCircle
+  MessageCircle,
+  Users
 } from 'lucide-react';
 
 const userNavItems = [
@@ -42,6 +43,7 @@ const userNavItems = [
   { title: 'packages', url: '/dashboard/packages', icon: Package },
   { title: 'investments', url: '/dashboard/investments', icon: TrendingUp },
   { title: 'chatTitle', url: '/dashboard/chat', icon: MessageCircle },
+  { title: 'Referrals', url: '/dashboard/referrals', icon: Users },
   { title: 'settings', url: '/dashboard/settings', icon: Settings },
 ];
 
@@ -171,8 +173,9 @@ export const DashboardLayout = () => {
         <main className="flex-1 bg-background">
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="md:hidden">
+              <div className="md:hidden flex items-center gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700 w-fit">
                 <SidebarTrigger />
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300 pr-2">Menu</span>
               </div>
               <div className="ml-auto flex items-center gap-2">
                 <LanguageSelector />

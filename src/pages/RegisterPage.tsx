@@ -4,18 +4,20 @@ import { useAuth } from '@/hooks/useAuth';
 import { useRegisterMutation } from '@/store/authApi';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { t } = useTranslation();
+	const [searchParams] = useSearchParams();
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
+		referralCode: searchParams.get("ref") || "",
 		agreeToTerms: false,
 	});
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -52,6 +54,7 @@ export const RegisterPage = () => {
 				password: formData.password,
 				firstName: formData.firstName,
 				lastName: formData.lastName,
+				referralCode: formData.referralCode,
 			}).unwrap();
 
 			toast({
@@ -224,6 +227,8 @@ export const RegisterPage = () => {
 										name="referralCode"
 										type="text"
 										placeholder="e.g. TRZ-12345"
+										value={formData.referralCode}
+										onChange={handleInputChange}
 									/>
 								</label>
 								<div className="flex items-start gap-3 py-2">

@@ -11,8 +11,17 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { Copy, CreditCard, Wallet, AlertCircle, CheckCircle2, Clock } from 'lucide-react';
 import { PAYMENT_ADDRESSES } from '@/utils/paymentConfig';
-import { useGetTransactionsQuery, useCreateDepositMutation } from '@/store/transactionsApi';
+import { useGetTransactionsQuery, useCreateDepositMutation, useCancelTransactionMutation } from '@/store/transactionsApi';
 import { useGetUserProfileQuery } from '@/store/userApi';
+
+interface PaymentConfig {
+  tether: string;
+  solana: string;
+  trx: string;
+  tetherBarcode: string;
+  solanaBarcode: string;
+  trxBarcode: string;
+}
 
 export const DepositPage = () => {
   const { t } = useTranslation();
@@ -25,14 +34,38 @@ export const DepositPage = () => {
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const { data: transactionsData = { data: [] }, isLoading } = useGetTransactionsQuery({ type: 'deposit' });
   const [createDeposit, { isLoading: isCreatingDeposit }] = useCreateDepositMutation();
+  const [cancelTransaction, { isLoading: isCanceling }] = useCancelTransactionMutation();
+  
+  const [paymentConfig, setPaymentConfig] = useState<PaymentConfig>({
+    tether: '', solana: '', trx: '', tetherBarcode: '', solanaBarcode: '', trxBarcode: ''
+  });
 
   const minDeposit = 100;
   const transactions = transactionsData.data || [];
 
-  // Set default selected method on mount
   useEffect(() => {
     setSelectedMethod('tether');
+    fetchPaymentConfig();
   }, []);
+
+  const fetchPaymentConfig = async () => {
+    try {
+      const response = await fetch('/api/settings/payment-addresses');
+      if (response.ok) {
+        const data = await response.json();
+        setPaymentConfig({
+           tether: data.tether || '',
+           solana: data.solana || '',
+           trx: data.trx || '',
+           tetherBarcode: data.tetherBarcode || '',
+           solanaBarcode: data.solanaBarcode || '',
+           trxBarcode: data.trxBarcode || ''
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching payment configs:', error);
+    }
+  };
 
   const handleDeposit = () => {
     if (!depositAmount || parseFloat(depositAmount) < minDeposit) {
@@ -69,7 +102,7 @@ export const DepositPage = () => {
       await createDeposit({
         amount: parseFloat(depositAmount),
         method: 'crypto',
-        walletAddress: PAYMENT_ADDRESSES[selectedMethod],
+        walletAddress: paymentConfig[selectedMethod] || '',
         reference: `${selectedMethod.toUpperCase()}_DEPOSIT_${Date.now()}`
       }).unwrap();
 
@@ -84,6 +117,23 @@ export const DepositPage = () => {
       toast({
         title: "Error",
         description: error.data?.message || "Failed to submit deposit request",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCancel = async (id: string) => {
+    if (!confirm('Are you sure you want to cancel this pending deposit?')) return;
+    try {
+      await cancelTransaction(id).unwrap();
+      toast({
+        title: "Cancelled",
+        description: "Your pending deposit was cancelled successfully.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.data?.message || "Failed to cancel deposit",
         variant: "destructive",
       });
     }
@@ -148,17 +198,24 @@ export const DepositPage = () => {
                   </p>
                   <div className="bg-background/50 p-3 rounded border border-green-500/20">
                     <div className="flex items-center justify-between">
-                      <code className="text-sm text-green-400 break-all">{PAYMENT_ADDRESSES.tether}</code>
+                      <code className="text-sm text-green-400 break-all">{paymentConfig.tether}</code>
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => copyToClipboard(PAYMENT_ADDRESSES.tether)}
+                        onClick={() => copyToClipboard(paymentConfig.tether)}
                         className="ml-2 shrink-0"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
+                  {paymentConfig.tetherBarcode && (
+                    <div className="mt-4 flex justify-center">
+                      <div className="p-2 bg-white rounded-lg">
+                        <img src={paymentConfig.tetherBarcode} alt="Tether QR Code" className="w-40 h-40 object-contain" />
+                      </div>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>Confirmation: 3-5 minutes</span>
@@ -177,17 +234,24 @@ export const DepositPage = () => {
                   </p>
                   <div className="bg-background/50 p-3 rounded border border-purple-500/20">
                     <div className="flex items-center justify-between">
-                      <code className="text-sm text-purple-400 break-all">{PAYMENT_ADDRESSES.solana}</code>
+                      <code className="text-sm text-purple-400 break-all">{paymentConfig.solana}</code>
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => copyToClipboard(PAYMENT_ADDRESSES.solana)}
+                        onClick={() => copyToClipboard(paymentConfig.solana)}
                         className="ml-2 shrink-0"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
+                  {paymentConfig.solanaBarcode && (
+                    <div className="mt-4 flex justify-center">
+                      <div className="p-2 bg-white rounded-lg">
+                        <img src={paymentConfig.solanaBarcode} alt="Solana QR Code" className="w-40 h-40 object-contain" />
+                      </div>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>Confirmation: 3-5 minutes</span>
@@ -206,17 +270,24 @@ export const DepositPage = () => {
                   </p>
                   <div className="bg-background/50 p-3 rounded border border-red-500/20">
                     <div className="flex items-center justify-between">
-                      <code className="text-sm text-red-400 break-all">{PAYMENT_ADDRESSES.trx}</code>
+                      <code className="text-sm text-red-400 break-all">{paymentConfig.trx}</code>
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => copyToClipboard(PAYMENT_ADDRESSES.trx)}
+                        onClick={() => copyToClipboard(paymentConfig.trx)}
                         className="ml-2 shrink-0"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
+                  {paymentConfig.trxBarcode && (
+                    <div className="mt-4 flex justify-center">
+                      <div className="p-2 bg-white rounded-lg">
+                        <img src={paymentConfig.trxBarcode} alt="TRX QR Code" className="w-40 h-40 object-contain" />
+                      </div>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>Confirmation: 3-5 minutes</span>
@@ -254,13 +325,24 @@ export const DepositPage = () => {
                         <p className="text-sm text-muted-foreground capitalize">{deposit.method}</p>
                       </div>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right flex flex-col items-end gap-2">
                       <Badge variant={deposit.status === 'approved' ? 'default' : deposit.status === 'pending' ? 'secondary' : 'destructive'}>
                         {deposit.status}
                       </Badge>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {new Date(deposit.createdAt).toLocaleDateString()}
-                      </p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(deposit.createdAt).toLocaleDateString()}
+                        </span>
+                        {deposit.status === 'pending' && (
+                          <button
+                            onClick={() => handleCancel(deposit._id)}
+                            disabled={isCanceling}
+                            className="text-xs text-red-500 hover:text-red-400 font-medium"
+                          >
+                            Cancel
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))

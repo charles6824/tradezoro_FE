@@ -21,12 +21,12 @@ export const LandingHeader = () => {
 				<div className="flex justify-between h-20 items-center">
 					<div className="flex items-center gap-8">
 						<div className="flex items-center gap-2 text-primary">
-							<span
+							<a
 								className="text-xl font-black tracking-tight text-slate-100"
-								onClick={() => navigate("/")}
+								href="/"
 							>
 								TRADEZERO
-							</span>
+							</a>
 						</div>
 						{/* Desktop nav */}
 						<div className="hidden lg:flex items-center gap-6">
