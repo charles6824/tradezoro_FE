@@ -50,7 +50,8 @@ export const DepositPage = () => {
 
   const fetchPaymentConfig = async () => {
     try {
-      const response = await fetch('/api/settings/payment-addresses');
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
+      const response = await fetch(`${apiUrl}/api/settings/payment-addresses`);
       if (response.ok) {
         const data = await response.json();
         setPaymentConfig({

@@ -49,6 +49,7 @@ import PricingPage from "./pages/PricingPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import { PublicReferralsPage } from "./pages/PublicReferralsPage";
 
 const App = () => (
 	<Provider store={store}>
@@ -147,6 +148,7 @@ const App = () => (
 					<Route path="/verify-otp" element={<OTPVerificationPage />} />
 					<Route path="/forgot-password" element={<ForgotPasswordPage />} />
 					<Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+					<Route path="/public-referrals" element={<PublicReferralsPage />} />
 
 					{/* Dashboard routes with sidebar - Protected */}
 					<Route
