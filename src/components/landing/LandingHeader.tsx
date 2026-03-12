@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const navLinks = [
-	{ label: 'Trade', href: '/trade' },
-	{ label: 'Platforms', href: '#' },
-	{ label: 'Learn', href: '#' },
-	{ label: 'Support', href: '#' },
+	{ label: 'Trade', href: '/login' },
+	{ label: 'Platforms', href: '/login' },
+	{ label: 'Learn', href: '/login' },
+	{ label: 'Support', href: '/login' },
 	{ label: 'Pricing', href: '/pricing' },
-	{ label: 'Stats', href: '#' },
+	{ label: 'Stats', href: '/login' },
 ];
 
 export const LandingHeader = () => {

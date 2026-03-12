@@ -31,7 +31,7 @@ const LandingHero = () => {
             Open an Account
           </button>
           <button className="px-10 py-5 rounded-full border border-primary/30 font-bold text-lg hover:bg-primary/5 transition-colors cursor-pointer" onClick={() => navigate("/register")}>
-            Learn More
+            Join Live Chat
           </button>
         </div>
       </div>

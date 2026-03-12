@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'
 
-const BuildExperienceSection = () => (
+const BuildExperienceSection = () => {
+  const navigate = useNavigate()
+  
+  return (
   <section className="py-24 bg-background-light dark:bg-background-dark">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
       <h2 className="text-4xl font-black mb-4">Build Your Trading Experience</h2>
@@ -14,7 +18,7 @@ const BuildExperienceSection = () => (
           </div>
           <h3 className="text-2xl font-bold mb-4">Professional Short Selling Tools</h3>
           <p className="text-slate-400 mb-8 leading-relaxed">Access hard-to-borrow stocks with our unique locate system. Advanced routing options for professional short sellers.</p>
-          <button className="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all">
+          <button className="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all" onClick={() => navigate("/login")}>
             EXPLORE TOOLS <span className="material-symbols-outlined">arrow_forward</span>
           </button>
         </div>
@@ -26,13 +30,13 @@ const BuildExperienceSection = () => (
           </div>
           <h3 className="text-2xl font-bold mb-4">Expanded Market Access</h3>
           <p className="text-slate-400 mb-8 leading-relaxed">Trade pre-market from 4am ET and after-hours until 8pm ET. Global connectivity with institutional liquidity providers.</p>
-          <button className="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all">
+          <button className="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all" onClick={() => navigate("/login")}>
             LEARN ABOUT ACCESS <span className="material-symbols-outlined">arrow_forward</span>
           </button>
         </div>
       </div>
     </div>
   </section>
-);
+)};
 
 export { BuildExperienceSection };
