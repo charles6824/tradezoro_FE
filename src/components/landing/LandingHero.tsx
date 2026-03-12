@@ -69,9 +69,9 @@ export const LandingHero = () => {
           </button>
           <button 
             className="px-8 py-4 sm:py-3.5 rounded-lg bg-[#00E676] text-[#0A120D] font-bold text-base sm:text-lg hover:bg-[#00c968] transition-colors w-full sm:w-auto" 
-            onClick={() => navigate("/login")}
+            onClick={() => window.open("https://t.me/tradezero_community", "_blank")}
           >
-            Learn More
+            Live Chat
           </button>
         </div>
       </div>

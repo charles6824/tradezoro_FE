@@ -19,7 +19,7 @@ const MiningSection = () => {
 						</p>
 						<div className="mb-6 animate-fadeInUp">
 							<Link
-								to="/register"
+								to="/login"
 								className="inline-block bg-primary text-background-dark font-semibold rounded px-8 py-3 shadow-lg transition"
 							>
 								Start Mining
@@ -184,7 +184,7 @@ const MiningSection = () => {
 									Bitcoin easily.
 								</p>
 								<Link
-									to="/register"
+									to="/login"
 									className="inline-block bg-primary text-background-dark font-semibold rounded-xl px-6 py-2 transition"
 								>
 									Open an Account
