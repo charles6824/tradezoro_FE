@@ -168,14 +168,14 @@ export const AdminMessagesPage = () => {
             </div>
 
             {recipientMode === 'specific' && (
-              <div className="space-y-2 border rounded-lg p-3 bg-slate-50">
+              <div className="space-y-2 border rounded-lg p-3 bg-muted/30">
                 <div className="flex flex-wrap gap-2 mb-2">
                   {selectedEmails.map((email) => (
-                    <Badge key={email} variant="secondary" className="px-3 py-1 bg-white border shadow-sm flex items-center gap-1">
-                      {email}
+                    <Badge key={email} variant="secondary" className="px-3 py-1 bg-background border shadow-sm flex items-center gap-1">
+                      <span className="text-foreground">{email}</span>
                       <button 
                         onClick={() => removeEmail(email)}
-                        className="ml-1 text-slate-400 hover:text-red-500 rounded-full focus:outline-none"
+                        className="ml-1 text-muted-foreground hover:text-destructive rounded-full focus:outline-none"
                       >
                         ×
                       </button>
@@ -187,9 +187,9 @@ export const AdminMessagesPage = () => {
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   onKeyDown={handleAddEmail}
-                  className="bg-white border-0 shadow-none focus-visible:ring-0 px-1 placeholder:text-slate-400"
+                  className="bg-transparent border-0 shadow-none focus-visible:ring-0 px-1 text-foreground placeholder:text-muted-foreground"
                 />
-                <p className="text-xs text-slate-500 w-full px-1 flex items-center gap-1">
+                <p className="text-xs text-muted-foreground w-full px-1 flex items-center gap-1">
                   <Info className="w-3 h-3"/> Separate multiple emails with Enter or Comma
                 </p>
               </div>
@@ -209,13 +209,13 @@ export const AdminMessagesPage = () => {
 
           <div className="space-y-2">
             <Label className="text-base">Message Content</Label>
-            <div className="bg-white rounded-lg border overflow-hidden">
+            <div className="bg-white text-slate-900 rounded-lg border overflow-hidden shadow-sm">
               <ReactQuill 
                 theme="snow" 
                 value={content} 
                 onChange={setContent}
                 modules={quillModules}
-                className="min-h-[300px]"
+                className="min-h-[300px] [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:text-base [&_.ql-toolbar]:border-x-0 [&_.ql-toolbar]:border-t-0 [&_.ql-toolbar]:bg-slate-50 [&_.ql-container]:border-x-0 [&_.ql-container]:border-b-0"
               />
             </div>
           </div>
