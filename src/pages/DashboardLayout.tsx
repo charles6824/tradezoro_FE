@@ -173,9 +173,21 @@ export const DashboardLayout = () => {
         <main className="flex-1 bg-background">
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="md:hidden flex items-center gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700 w-fit">
-                <SidebarTrigger />
-                <span className="text-sm font-bold text-slate-700 dark:text-slate-300 pr-2">Menu</span>
+              <div className="flex items-center gap-4">
+                <div className="md:hidden flex items-center gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700 w-fit">
+                  <SidebarTrigger />
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300 pr-2">Menu</span>
+                </div>
+                
+                {/* Logo injected for all screen sizes connecting back to landing page */}
+                <Link to="/" className="flex items-center space-x-2">
+                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-600">
+                    <Wallet className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xl font-bold text-slate-900 hidden sm:block">
+                    TradeZero
+                  </span>
+                </Link>
               </div>
               <div className="ml-auto flex items-center gap-2">
                 <LanguageSelector />

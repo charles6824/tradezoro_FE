@@ -29,7 +29,7 @@ const AdminPaymentConfigPage = () => {
 
   const fetchPaymentConfig = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = JSON.parse(localStorage.getItem('crypto_auth') || '{}').token;
       const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
       const response = await fetch(`${apiUrl}/api/settings/payment-addresses`, {
         headers: {
@@ -90,7 +90,7 @@ const AdminPaymentConfigPage = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const token = JSON.parse(localStorage.getItem('crypto_auth') || '{}').token;
       
       const formData = new FormData();
       // Send the array of method objects as a JSON string

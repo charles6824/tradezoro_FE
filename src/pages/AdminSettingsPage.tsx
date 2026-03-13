@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	Card,
 	CardContent,
@@ -67,14 +67,83 @@ export const AdminSettingsPage = () => {
 		backupFrequency: "daily",
 	});
 
-	const handleSaveSettings = () => {
-		// Save settings to localStorage
-		localStorage.setItem("admin_settings", JSON.stringify(settings));
+	const [isSaving, setIsSaving] = useState(false);
 
-		toast({
-			title: "Settings Saved",
-			description: "All platform settings have been updated successfully.",
-		});
+	useEffect(() => {
+		const fetchSettings = async () => {
+			try {
+				const token = JSON.parse(localStorage.getItem("crypto_auth") || "{}").token;
+				const apiUrl = import.meta.env.VITE_API_URL || "https://tradezero-be.onrender.com";
+				const response = await fetch(`${apiUrl}/api/settings/admin`, {
+					headers: { Authorization: `Bearer ${token}` }
+				});
+				if (response.ok) {
+					const result = await response.json();
+					if (result.success && Array.isArray(result.data)) {
+						const mapped: any = { ...settings };
+						result.data.forEach((item: any) => {
+							if (item.key in mapped) {
+								mapped[item.key] = item.value;
+							}
+						});
+						setSettings(mapped);
+					}
+				}
+			} catch (err) {
+				console.error("Failed to load global settings", err);
+			}
+		};
+		fetchSettings();
+	}, []);
+
+	const handleSaveSettings = async () => {
+		setIsSaving(true);
+		try {
+			const token = JSON.parse(localStorage.getItem("crypto_auth") || "{}").token;
+			const apiUrl = import.meta.env.VITE_API_URL || "https://tradezero-be.onrender.com";
+			
+			// Fire all updates in parallel
+			const promises = Object.entries(settings).map(([key, value]) => {
+				let category = "general";
+				if (["minDepositAmount", "maxDepositAmount", "withdrawalProcessingTime", "autoApproveWithdrawals"].includes(key)) {
+					category = "payment";
+				} else if (["requireEmailVerification", "enforceStrongPasswords", "enableTwoFactor", "sessionTimeout"].includes(key)) {
+					category = "security";
+				} else if (["emailNotifications", "smsNotifications", "webhookUrl"].includes(key)) {
+					category = "notification";
+				}
+
+				return fetch(`${apiUrl}/api/settings`, {
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						key,
+						value,
+						category,
+						isPublic: category === "payment" ? true : false,
+						dataType: typeof value === "boolean" ? "boolean" : (typeof value === "number" || !isNaN(Number(value)) ? "number" : "string")
+					})
+				});
+			});
+
+			await Promise.all(promises);
+
+			toast({
+				title: "Settings Saved",
+				description: "All platform settings have been updated globally to the database.",
+			});
+		} catch (err) {
+			toast({
+				title: "Sync Error",
+				description: "Failed to sync settings to backend.",
+				variant: "destructive"
+			});
+		} finally {
+			setIsSaving(false);
+		}
 	};
 
 	const handleSettingChange = (key: string, value: any) => {
@@ -107,9 +176,9 @@ export const AdminSettingsPage = () => {
 				<h1 className="text-3xl font-bold text-foreground">
 					Platform Settings
 				</h1>
-				<Button onClick={handleSaveSettings}>
+				<Button onClick={handleSaveSettings} disabled={isSaving}>
 					<Save className="w-4 h-4 mr-2" />
-					Save All Settings
+					{isSaving ? "Saving..." : "Save All Settings"}
 				</Button>
 			</div>
 
