@@ -133,128 +133,132 @@ export const AdminUsersPage = () => {
             </div>
           </div>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>User</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Balance</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Verified</TableHead>
-                <TableHead>Joined</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredUsers.map((user) => (
-                <TableRow key={user.id} className="hover:bg-muted/50">
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="font-medium">{user.firstName} {user.lastName}</span>
-                      <span className="text-sm text-muted-foreground">ID: {user.id}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <span className="font-medium">${user.balance.toLocaleString()}</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={user.isActive ? 'default' : 'destructive'}>
-                      {user.isActive ? 'Active' : 'Suspended'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={user.isVerified ? 'default' : 'secondary'}>
-                      {user.isVerified ? 'Verified' : 'Unverified'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {new Date().toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <Dialog>
-                        <DialogTrigger asChild>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="min-w-[800px] px-4 sm:px-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>User</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Balance</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Verified</TableHead>
+                    <TableHead>Joined</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredUsers.map((user: any) => (
+                    <TableRow key={user.id} className="hover:bg-muted/50">
+                      <TableCell>
+                        <div className="flex flex-col">
+                          <span className="font-medium">{user.firstName} {user.lastName}</span>
+                          <span className="text-sm text-muted-foreground">ID: {user.id}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <span className="font-medium">${user.balance?.toLocaleString()}</span>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={user.isActive ? 'default' : 'destructive'}>
+                          {user.isActive ? 'Active' : 'Suspended'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={user.isVerified ? 'default' : 'secondary'}>
+                          {user.isVerified ? 'Verified' : 'Unverified'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                        {new Date(user.createdAt || new Date()).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => setSelectedUser(user)}
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>User Details</DialogTitle>
+                                <DialogDescription>
+                                  Detailed information about {user.firstName} {user.lastName}
+                                </DialogDescription>
+                              </DialogHeader>
+                              {selectedUser && (
+                                <div className="space-y-4">
+                                  <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                      <span className="text-sm font-medium">Full Name:</span>
+                                      <p>{selectedUser.firstName} {selectedUser.lastName}</p>
+                                    </div>
+                                    <div>
+                                      <span className="text-sm font-medium">Email:</span>
+                                      <p>{selectedUser.email}</p>
+                                    </div>
+                                    <div>
+                                      <span className="text-sm font-medium">Balance:</span>
+                                      <p>${selectedUser.balance?.toLocaleString()}</p>
+                                    </div>
+                                    <div>
+                                      <span className="text-sm font-medium">Phone:</span>
+                                      <p>{selectedUser.phone || 'Not provided'}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </DialogContent>
+                          </Dialog>
+                          
+                          {user.isActive ? (
+                            <Button 
+                              size="sm" 
+                              variant="destructive"
+                              onClick={() => handleSuspendUser(user._id)}
+                            >
+                              <UserX className="w-4 h-4" />
+                            </Button>
+                          ) : (
+                            <Button 
+                              size="sm" 
+                              onClick={() => handleActivateUser(user._id)}
+                            >
+                              <UserCheck className="w-4 h-4" />
+                            </Button>
+                          )}
+                          
+                          {!user.isVerified && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleVerifyUser(user._id)}
+                            >
+                              <Shield className="w-4 h-4" />
+                            </Button>
+                          )}
+                          
                           <Button 
                             size="sm" 
-                            variant="outline"
-                            onClick={() => setSelectedUser(user)}
+                            variant="destructive"
+                            onClick={() => openDeleteModal(user)}
                           >
-                            <Eye className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4" />
                           </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>User Details</DialogTitle>
-                            <DialogDescription>
-                              Detailed information about {user.firstName} {user.lastName}
-                            </DialogDescription>
-                          </DialogHeader>
-                          {selectedUser && (
-                            <div className="space-y-4">
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <span className="text-sm font-medium">Full Name:</span>
-                                  <p>{selectedUser.firstName} {selectedUser.lastName}</p>
-                                </div>
-                                <div>
-                                  <span className="text-sm font-medium">Email:</span>
-                                  <p>{selectedUser.email}</p>
-                                </div>
-                                <div>
-                                  <span className="text-sm font-medium">Balance:</span>
-                                  <p>${selectedUser.balance.toLocaleString()}</p>
-                                </div>
-                                <div>
-                                  <span className="text-sm font-medium">Phone:</span>
-                                  <p>{selectedUser.phone || 'Not provided'}</p>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </DialogContent>
-                      </Dialog>
-                      
-                      {user.isActive ? (
-                        <Button 
-                          size="sm" 
-                          variant="destructive"
-                          onClick={() => handleSuspendUser(user._id)}
-                        >
-                          <UserX className="w-4 h-4" />
-                        </Button>
-                      ) : (
-                        <Button 
-                          size="sm" 
-                          onClick={() => handleActivateUser(user._id)}
-                        >
-                          <UserCheck className="w-4 h-4" />
-                        </Button>
-                      )}
-                      
-                      {!user.isVerified && (
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          onClick={() => handleVerifyUser(user._id)}
-                        >
-                          <Shield className="w-4 h-4" />
-                        </Button>
-                      )}
-                      
-                      <Button 
-                        size="sm" 
-                        variant="destructive"
-                        onClick={() => openDeleteModal(user)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
       

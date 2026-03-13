@@ -186,102 +186,106 @@ export const AdminTransactionsPage = () => {
             </Button>
           </div>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>User</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredTransactions.map((transaction: any) => (
-                <TableRow key={transaction._id} className="hover:bg-muted/50">
-                  <TableCell className="font-medium font-mono text-xs">
-                    {transaction.reference || transaction._id?.slice(-8)}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="font-medium">
-                        {transaction.userId?.firstName} {transaction.userId?.lastName}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {transaction.userId?.email}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>{getTypeBadge(transaction.type)}</TableCell>
-                  <TableCell className="font-medium">
-                    ${transaction.amount?.toLocaleString() || 0}
-                  </TableCell>
-                  <TableCell className="capitalize">{transaction.method}</TableCell>
-                  <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {new Date(transaction.createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleViewTransaction(transaction)}
-                      >
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                      {transaction.status === 'pending' && (
-                        <>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="min-w-[800px] px-4 sm:px-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Method</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredTransactions.map((transaction: any) => (
+                    <TableRow key={transaction._id} className="hover:bg-muted/50">
+                      <TableCell className="font-medium font-mono text-xs">
+                        {transaction.reference || transaction._id?.slice(-8)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex flex-col">
+                          <span className="font-medium">
+                            {transaction.userId?.firstName} {transaction.userId?.lastName}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {transaction.userId?.email}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{getTypeBadge(transaction.type)}</TableCell>
+                      <TableCell className="font-medium">
+                        ${transaction.amount?.toLocaleString() || 0}
+                      </TableCell>
+                      <TableCell className="capitalize">{transaction.method}</TableCell>
+                      <TableCell>{getStatusBadge(transaction.status)}</TableCell>
+                      <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                        {new Date(transaction.createdAt).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
                           <Button 
                             size="sm" 
-                            onClick={() => handleApproveTransaction(transaction)}
-                            className="bg-green-600 hover:bg-green-700"
-                            disabled={isProcessing}
+                            variant="outline"
+                            onClick={() => handleViewTransaction(transaction)}
                           >
-                            {isProcessing ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              <CheckCircle className="w-4 h-4" />
-                            )}
+                            <Eye className="w-4 h-4" />
                           </Button>
-                          <Button 
-                            size="sm" 
-                            variant="destructive"
-                            onClick={() => handleRejectTransaction(transaction)}
-                            disabled={isProcessing}
-                          >
-                            {isProcessing ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              <XCircle className="w-4 h-4" />
-                            )}
-                          </Button>
-                        </>
-                      )}
-                      {transaction.status !== 'pending' && (
-                        <span className="text-xs text-muted-foreground ml-2">
-                          {transaction.processedBy?.firstName ? 
-                            `By ${transaction.processedBy.firstName}` : 
-                            'Processed'
-                          }
-                        </span>
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filteredTransactions.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                    No transactions found
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                          {transaction.status === 'pending' && (
+                            <>
+                              <Button 
+                                size="sm" 
+                                onClick={() => handleApproveTransaction(transaction)}
+                                className="bg-green-600 hover:bg-green-700"
+                                disabled={isProcessing}
+                              >
+                                {isProcessing ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <CheckCircle className="w-4 h-4" />
+                                )}
+                              </Button>
+                              <Button 
+                                size="sm" 
+                                variant="destructive"
+                                onClick={() => handleRejectTransaction(transaction)}
+                                disabled={isProcessing}
+                              >
+                                {isProcessing ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <XCircle className="w-4 h-4" />
+                                )}
+                              </Button>
+                            </>
+                          )}
+                          {transaction.status !== 'pending' && (
+                            <span className="text-xs text-muted-foreground ml-2 whitespace-nowrap">
+                              {transaction.processedBy?.firstName ? 
+                                `By ${transaction.processedBy.firstName}` : 
+                                'Processed'
+                              }
+                            </span>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {filteredTransactions.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                        No transactions found
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
 

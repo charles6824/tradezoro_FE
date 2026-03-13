@@ -203,30 +203,34 @@ export const AdminReportsPage = () => {
             <CardDescription>Packages ranked by total investment amount</CardDescription>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Package</TableHead>
-                  <TableHead>Investors</TableHead>
-                  <TableHead>Total Amount</TableHead>
-                  <TableHead>ROI</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {packageDistribution.map((pkg, index) => (
-                  <TableRow key={pkg.name}>
-                    <TableCell className="font-medium">{pkg.name}</TableCell>
-                    <TableCell>{pkg.value}</TableCell>
-                    <TableCell>${pkg.amount.toLocaleString()}</TableCell>
-                    <TableCell>
-                      <Badge variant="default">
-                        {packages.find(p => p.name === pkg.name)?.roi || 0}%
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="min-w-[600px] px-4 sm:px-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Package</TableHead>
+                      <TableHead>Investors</TableHead>
+                      <TableHead>Total Amount</TableHead>
+                      <TableHead>ROI</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {packageDistribution.map((pkg, index) => (
+                      <TableRow key={pkg.name}>
+                        <TableCell className="font-medium whitespace-nowrap">{pkg.name}</TableCell>
+                        <TableCell>{pkg.value}</TableCell>
+                        <TableCell>${pkg.amount.toLocaleString()}</TableCell>
+                        <TableCell>
+                          <Badge variant="default">
+                            {packages.find((p: any) => p.name === pkg.name)?.roi || 0}%
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

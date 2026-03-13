@@ -338,90 +338,94 @@ export const AdminPackagesPage = () => {
           <CardDescription>Manage and configure investment packages for users</CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Package Name</TableHead>
-                <TableHead>Amount Range</TableHead>
-                <TableHead>Duration</TableHead>
-                <TableHead>ROI</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {packages.map((pkg) => (
-                <TableRow key={pkg._id} className="hover:bg-muted/50">
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="font-medium">{pkg.name}</span>
-                      <span className="text-sm text-muted-foreground">
-                        {pkg.description || 'No description'}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="font-medium">
-                      ${pkg.minAmount?.toLocaleString() || 0} - ${pkg.maxAmount?.toLocaleString() || 0}
-                    </span>
-                  </TableCell>
-                  <TableCell>{pkg.duration} days</TableCell>
-                  <TableCell>
-                    <span className="font-medium text-green-600">{pkg.roi}%</span>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={pkg.isActive ? 'default' : 'secondary'}>
-                      {pkg.isActive ? 'Active' : 'Inactive'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleTogglePackage(pkg._id)}
-                        disabled={isToggling}
-                      >
-                        {isToggling ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : pkg.isActive ? (
-                          <ToggleLeft className="w-4 h-4" />
-                        ) : (
-                          <ToggleRight className="w-4 h-4" />
-                        )}
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleEditPackage(pkg)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="destructive"
-                        onClick={() => handleDeletePackage(pkg._id)}
-                        disabled={isDeleting}
-                      >
-                        {isDeleting ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Trash2 className="w-4 h-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {packages.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                    No packages found. Create your first package to get started.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="min-w-[800px] px-4 sm:px-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Package Name</TableHead>
+                    <TableHead>Amount Range</TableHead>
+                    <TableHead>Duration</TableHead>
+                    <TableHead>ROI</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {packages.map((pkg: any) => (
+                    <TableRow key={pkg._id} className="hover:bg-muted/50">
+                      <TableCell>
+                        <div className="flex flex-col">
+                          <span className="font-medium">{pkg.name}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {pkg.description || 'No description'}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium whitespace-nowrap">
+                          ${pkg.minAmount?.toLocaleString() || 0} - ${pkg.maxAmount?.toLocaleString() || 0}
+                        </span>
+                      </TableCell>
+                      <TableCell className="whitespace-nowrap">{pkg.duration} days</TableCell>
+                      <TableCell>
+                        <span className="font-medium text-green-600">{pkg.roi}%</span>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={pkg.isActive ? 'default' : 'secondary'}>
+                          {pkg.isActive ? 'Active' : 'Inactive'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleTogglePackage(pkg._id)}
+                            disabled={isToggling}
+                          >
+                            {isToggling ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : pkg.isActive ? (
+                              <ToggleLeft className="w-4 h-4" />
+                            ) : (
+                              <ToggleRight className="w-4 h-4" />
+                            )}
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleEditPackage(pkg)}
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="destructive"
+                            onClick={() => handleDeletePackage(pkg._id)}
+                            disabled={isDeleting}
+                          >
+                            {isDeleting ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {packages.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                        No packages found. Create your first package to get started.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
