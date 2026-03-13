@@ -265,7 +265,6 @@ const resources = {
 			chatSubtitle: "Get help from our support team",
 			typeMessage: "Type your message...",
 			sendMessage: "Send Message",
-			onlineSupport: "Online Support",
 			chatHistory: "Chat History",
 
 			// Investment Page
@@ -311,7 +310,6 @@ const resources = {
 			fullName: "Full Name",
 			confirmPassword: "Confirm Password",
 			agreeToTerms: "I agree to the Terms of Service and Privacy Policy",
-			createAccount: "Create Account",
 			alreadyHaveAccount: "Already have an account?",
 
 			// Legal Pages
@@ -640,7 +638,6 @@ const resources = {
 			chatSubtitle: "Holen Sie sich Hilfe von unserem Support-Team",
 			typeMessage: "Geben Sie Ihre Nachricht ein...",
 			sendMessage: "Nachricht senden",
-			onlineSupport: "Online-Support",
 			chatHistory: "Chat-Verlauf",
 
 			// Investment Page
@@ -688,7 +685,6 @@ const resources = {
 			confirmPassword: "Passwort bestätigen",
 			agreeToTerms:
 				"Ich stimme den Nutzungsbedingungen und der Datenschutzrichtlinie zu",
-			createAccount: "Konto erstellen",
 			alreadyHaveAccount: "Haben Sie bereits ein Konto?",
 
 			// Legal Pages
@@ -1013,7 +1009,6 @@ const resources = {
 			chatSubtitle: "Obtenez de l'aide de notre équipe de support",
 			typeMessage: "Tapez votre message...",
 			sendMessage: "Envoyer le message",
-			onlineSupport: "Support en ligne",
 			chatHistory: "Historique du chat",
 
 			// Investment Page
@@ -1060,7 +1055,6 @@ const resources = {
 			confirmPassword: "Confirmer le mot de passe",
 			agreeToTerms:
 				"J'accepte les conditions de service et la politique de confidentialité",
-			createAccount: "Créer un compte",
 			alreadyHaveAccount: "Vous avez déjà un compte?",
 
 			// Legal Pages
@@ -1166,7 +1160,7 @@ const resources = {
 				"Gane hasta 40% de ROI con nuestro portafolio de inversión diversificado en múltiples sectores.",
 			expertSupport: "Soporte experto 24/7",
 			expertSupportDesc:
-				"Obtenga orientación profesional de nuestros expertos en inversiones cuando la necesite.",
+				"Obtenga guía profesional de nuestros expertos en inversiones cuando la necesite.",
 
 			investmentCategories: "Categorías de inversión",
 			realEstate: "Bienes Raíces",
@@ -1382,8 +1376,7 @@ const resources = {
 			chatTitle: "Chat de Soporte",
 			chatSubtitle: "Obtenga ayuda de nuestro equipo de soporte",
 			typeMessage: "Escriba su mensaje...",
-			sendMessage: "Enviar Mensaje",
-			onlineSupport: "Soporte en Línea",
+			sendMessage: "Enviar mensaje",
 			chatHistory: "Historial de Chat",
 
 			// Investment Page
@@ -1430,7 +1423,6 @@ const resources = {
 			confirmPassword: "Confirmar contraseña",
 			agreeToTerms:
 				"Acepto los Términos de Servicio y la Política de Privacidad",
-			createAccount: "Crear cuenta",
 			alreadyHaveAccount: "¿Ya tienes una cuenta?",
 
 			// Legal Pages
@@ -1742,10 +1734,6 @@ const resources = {
 
 			// Chat Page
 			chatTitle: "دردشة الدعم",
-			chatSubtitle: "احصل على المساعدة من فريق الدعم لدينا",
-			typeMessage: "اكتب رسالتك...",
-			sendMessage: "إرسال الرسالة",
-			onlineSupport: "الدعم المباشر",
 			chatHistory: "تاريخ المحادثات",
 
 			// Investment Page
@@ -1791,7 +1779,6 @@ const resources = {
 			fullName: "الاسم الكامل",
 			confirmPassword: "تأكيد كلمة المرور",
 			agreeToTerms: "أوافق على شروط الخدمة وسياسة الخصوصية",
-			createAccount: "إنشاء حساب",
 			alreadyHaveAccount: "لديك حساب بالفعل؟",
 
 			// Legal Pages
@@ -2105,10 +2092,6 @@ const resources = {
 
 			// Chat Page
 			chatTitle: "چت پشتیبانی",
-			chatSubtitle: "از تیم پشتیبانی ما کمک بگیرید",
-			typeMessage: "پیام خود را تایپ کنید...",
-			sendMessage: "ارسال پیام",
-			onlineSupport: "پشتیبانی آنلاین",
 			chatHistory: "تاریخچه چت",
 
 			// Investment Page
@@ -2154,7 +2137,6 @@ const resources = {
 			fullName: "نام کامل",
 			confirmPassword: "تایید رمز عبور",
 			agreeToTerms: "با شرایط خدمات و سیاست حریم خصوصی موافقم",
-			createAccount: "ایجاد حساب",
 			alreadyHaveAccount: "قبلاً حساب دارید؟",
 
 			// Legal Pages
@@ -2225,7 +2207,118 @@ const resources = {
 			riskManagementTools: "ابزارهای مدیریت ریسک",
 		},
 	},
+	zh: {
+		translation: {
+			home: "首页", packages: "套餐", about: "关于", contact: "联系", login: "登录", register: "注册",
+			dashboard: "仪表板", settings: "设置", logout: "登出", language: "语言", welcome: "欢迎", balance: "余额",
+			deposit: "存款", withdraw: "提款", transfer: "转账", investments: "投资",
+			heroTitle: "专业投资平台", heroSubtitle: "专业数字资产。",
+			getStarted: "开始使用", learnMore: "了解更多",
+			whyChooseUs: "为什么选择我们？", secureInvestments: "安全投资", secureInvestmentsDesc: "银行级平台。",
+			highReturns: "高回报", highReturnsDesc: "稳健的增长。", expertSupport: "专家支持", expertSupportDesc: "无时无刻的指导。",
+			investmentCategories: "投资类别", realEstate: "房地产", realEstateDesc: "顶级物业。", oilGas: "石油和天然气", oilGasDesc: "稳定回报。",
+			agriculture: "农业", agricultureDesc: "可持续项目。", cryptoMining: "加密货币挖矿", cryptoMiningDesc: "受益于加密货币市场增长。",
+			totalInvestors: "总投资者", totalInvested: "总投资额", averageReturns: "平均回报率", successRate: "成功率",
+			readyToStart: "准备好开始了吗？", joinToday: "加入上万名成功投资者", startInvesting: "现在开始",
+			quickLinks: "快速链接", legalInfo: "法律信息", privacyPolicy: "隐私政策", termsOfService: "服务条款", riskDisclaimer: "风险声明", followUs: "关注我们", allRightsReserved: "版权所有。",
+			viewAll: "查看全部", readMore: "阅读更多", apply: "应用", cancel: "取消", save: "保存", edit: "编辑", delete: "删除", confirm: "确认",
+			back: "返回", next: "下一步", previous: "上一步", loading: "加载中...", error: "错误", success: "成功",
+			aboutTitle: "关于 TradeZeroTrading", aboutSubtitle: "引领未来投资机会",
+			ourMission: "我们的任务", ourMissionDesc: "赋能投资者。", ourVision: "我们的愿景", ourVisionDesc: "值得信赖的投资中心。",
+			ourValues: "我们的核心价值观", transparency: "透明度", transparencyDesc: "高度透明化操作。", security: "安全", securityDesc: "安全可靠的数据保护。",
+			innovation: "创新", innovationDesc: "尖端思维。", sustainability: "可持续", sustainabilityDesc: "环保理念。",
+			companyStats: "公司统计", foundedIn: "成立于 2019", globalPresence: "全球影响力", teamMembers: "150 多名专家团队", regulatoryCompliance: "欧盟监管合规",
+			contactTitle: "联系我们", contactSubtitle: "获取专家支持", getInTouch: "保持联系", getInTouchDesc: "有问题吗？",
+			contactInfo: "联系信息", address: "地址", phone: "电话", email: "电邮", businessHours: "营业时间", mondayFriday: "周一 - 周五", weekend: "周末",
+			contactForm: "给我们发消息", firstName: "名字", lastName: "姓氏", subject: "主题", message: "信息", sendMessage: "发送",
+			testimonialTitle: "投资者评价", testimonialSubtitle: "成功的真实案例。", clientTestimonial1: "很棒。", clientTestimonial2: "靠谱。", clientTestimonial3: "服务一流。",
+			required: "必填项", invalidEmail: "无效的邮箱", messageSent: "发送成功！", messageError: "发送失败。",
+			packagesTitle: "投资组合", packagesSubtitle: "选择合适的计划", choosePackage: "选择套餐", packageFeatures: "特性",
+			minimumInvestment: "最低", maximumInvestment: "最高", duration: "周期", roi: "ROI", dailyReturns: "日收益", totalReturn: "总回报",
+			instantWithdrawal: "即时提现", support: "支持", securePayment: "安全验证", riskLevel: "风险等级", low: "低", medium: "中", high: "高", days: "天",
+			selectPlan: "选定", mostPopular: "热门", recommended: "推荐",
+			starterPlan: "入门", starterDesc: "初学者必备", basicPlan: "基础", basicDesc: "风险适中", premiumPlan: "高级", premiumDesc: "高级盈利", professionalPlan: "专业", professionalDesc: "专为大额打造", vipPlan: "VIP", vipDesc: "独享收益",
+			dashboardTitle: "仪表板", welcomeBack: "欢迎回来", totalBalance: "总余额", availableBalance: "可用资源", totalEarnings: "总收入",
+			activeInvestments: "投资中", pendingWithdrawals: "待出款", recentTransactions: "近期交易", quickActions: "快速选项", viewAllTransactions: "全部交易",
+			depositTitle: "存款", depositSubtitle: "开始注资", selectPaymentMethod: "付款方式", depositAmount: "存款金额",
+			minimumDeposit: "最少", processingFee: "手续费", totalAmount: "总和", proceedToPayment: "前往支付", depositHistory: "历史存款",
+			withdrawalTitle: "要求撤回", withdrawalSubtitle: "利润提现", withdrawalAmount: "提现额", minimumWithdrawal: "最低",
+			withdrawalFee: "手续", netAmount: "净额", requestWithdrawal: "申请", withdrawalHistory: "提款记录",
+			transferTitle: "资金转移", transferSubtitle: "目标账户", recipientEmail: "收款人", transferAmount: "转账金额", transferFee: "费用", transferNote: "备注", sendTransfer: "发送", transferHistory: "历史",
+			accountSettings: "账户配置", profileInformation: "简介设定", securitySettings: "安全", notificationSettings: "通知中心",
+			changePassword: "更换密码", currentPassword: "旧密码", newPassword: "新密码", confirmPassword: "确认", updateProfile: "更正信息",
+			twoFactorAuth: "双边验证 2FA", emailNotifications: "邮件通知", smsNotifications: "短信提示",
+			chatTitle: "在线客服", chatSubtitle: "团队解答", typeMessage: "文字聊天...", onlineSupport: "在线连线", chatHistory: "历史聊天",
+			myInvestments: "我的列表", investmentOverview: "概览", makeInvestment: "发起投资", investmentAmount: "资本额度", expectedReturn: "预估",
+			maturityDate: "到期日期", investmentStatus: "状态指示", active: "活跃", completed: "结清", pending: "未定",
+			approved: "获批", rejected: "拒绝", processing: "受理中", failed: "失效", amount: "数量", date: "日期", status: "状态", action: "动作", description: "描述", reference: "验证码", type: "形态",
+			loginTitle: "欢迎登陆", loginSubtitle: "延续服务", emailAddress: "注册邮箱", password: "密钥", rememberMe: "记住状态", forgotPassword: "忘记密码", signIn: "登入服务器", noAccount: "还没有账号？", signUp: "立刻注册！",
+			registerTitle: "构建账户体系", registerSubtitle: "开启成功之门", fullName: "实名信息", agreeToTerms: "遵循基本服务准则", createAccount: "一键生成", alreadyHaveAccount: "返回系统？",
+			privacyPolicyTitle: "隐私战略", privacyPolicyContent: "多维保护。", termsOfServiceTitle: "合规条例", termsOfServiceContent: "准则细则。", riskDisclaimerTitle: "风险规避通告", riskDisclaimerContent: "风险对等。",
+			lastUpdated: "最后修改于", effectiveDate: "全网生效", emailSupport: "邮件支援", emailSupportDesc: "极速回复", phoneSupport: "电话通路", phoneSupportDesc: "真人专线", liveChat: "文字连线", liveChatDesc: "全天候对接",
+			officeLocation: "指挥总部中心", officeLocationDesc: "全球地址库", availableOnPlatform: "系统支持", byAppointment: "提前预约通道",
+			faqTitle: "百科指南", faqSubtitle: "解决各类难点。", faq_q1_question: "步骤简介？", faq_q1_answer: "注册即享用。", faq_q2_question: "最低消费参数？", faq_q2_answer: "计划 100 即可覆盖。", faq_q3_question: "资金壁垒如何构建？", faq_q3_answer: "运用多重物理断网技术保证。", faq_q4_question: "资产提请速率？", faq_q4_answer: "当日极速结算。",
+			secureInsured: "防震保暖系统", secureInsuredDesc: "全天候扫描。", provenReturns: "成果检验机制", provenReturnsDesc: "多因子架构赋能数据。", automatedTrading: "算法无休模型", automatedTradingDesc: "覆盖休市时间真空期。", expertManagement: "大咖挂帅领投", expertManagementDesc: "全球筛选顶阶策略师。",
+			dailyProfitDistribution: "T+0日分配", realtimePortfolioTracking: "多线追踪网络", multiCurrencySupport: "法币/数字聚合", customerSupport247: "时钟伴随矩阵", mobileAppAccess: "终端应用集群", advancedAnalytics: "超算解析", platformFeaturesTitle: "生态架构", platformFeaturesSubtitle: "无尽迭代的数字系统。"
+		}
+	},
+	tr: {
+		translation: {
+			home: "Ana Sayfa", packages: "Paketler", about: "Hakkında", contact: "İletişim", login: "Giriş Yap", register: "Kayıt Ol",
+			dashboard: "Panel", settings: "Ayarlar", logout: "Çıkış Yap", language: "Dil", welcome: "Hoş Geldiniz", balance: "Bakiye",
+			deposit: "Para Yatır", withdraw: "Para Çek", transfer: "Transfer", investments: "Yatırımlar",
+			heroTitle: "Profesyonel Yatırım Platformu", heroSubtitle: "Yatırımlarınızı katlayın.",
+			getStarted: "Başla", learnMore: "Daha Fazla",
+			whyChooseUs: "Neden Biz?", secureInvestments: "Güvenli Yatırım", secureInvestmentsDesc: "Yatırımlarınızı korumak için yüksek güvenlik.",
+			highReturns: "Yüksek Getiri", highReturnsDesc: "%40'a varan yatırım getirisi oranı.", expertSupport: "7/24 Destek", expertSupportDesc: "Uzmanlardan profesyonel destek.",
+			investmentCategories: "Yatırım Kategorileri", realEstate: "Gayrimenkul", realEstateDesc: "Kesin getiri.", oilGas: "Petrol & Doğalgaz", oilGasDesc: "İstikrarlı.",
+			agriculture: "Tarım", agricultureDesc: "Sürdürülebilir proje desteği.", cryptoMining: "Kripto Madencilik", cryptoMiningDesc: "Hızlı büyüme.",
+			totalInvestors: "Toplam Yatırımcı", totalInvested: "Toplam Yatırım", averageReturns: "Ortalama Getiri", successRate: "Başarı Oranı",
+			readyToStart: "Yatırıma Başlamak İster Misiniz?", joinToday: "Binlerce kişiye katılın.", startInvesting: "Hemen Başla",
+			quickLinks: "Hızlı Linkler", legalInfo: "Yasal Bilgiler", privacyPolicy: "Gizlilik Politikası", termsOfService: "Kullanım Şartları", riskDisclaimer: "Risk Feragatı", followUs: "Bizi Takip Edin", allRightsReserved: "Her Hakkı Saklıdır.",
+			viewAll: "Tümünü Gör", readMore: "Daha Fazla Oku", apply: "Uygula", cancel: "İptal", save: "Kaydet", edit: "Düzenle", delete: "Sil", confirm: "Onayla",
+			back: "Geri", next: "İleri", previous: "Önceki", loading: "Yükleniyor...", error: "Hata", success: "Başarılı",
+			aboutTitle: "Hakkımızda", aboutSubtitle: "Çeşitlendirilmiş yatırım olanaklarında geleceğe liderlik etmek.",
+			ourMission: "Misyonumuz", ourMissionDesc: "Herkesin kullanımına yatırımı sunmak.", ourVision: "Vizyonumuz", ourVisionDesc: "Güvenilir global yatırım.",
+			ourValues: "Değerlerimiz", transparency: "Şeffaflık", transparencyDesc: "Tam şeffaflık.", security: "Güvenlik", securityDesc: "Yüksek düzey koruma.",
+			innovation: "İnovasyon", innovationDesc: "Yüksek teknoloji.", sustainability: "Sürdürülebilirlik", sustainabilityDesc: "Çevreci projeler.",
+			companyStats: "Şirket İstatistikleri", foundedIn: "2019'da kuruldu.", globalPresence: "Global Varlık", teamMembers: "150+ Uzman", regulatoryCompliance: "Uyumluluk Onayı",
+			contactTitle: "Bize Ulaşın", contactSubtitle: "Uzmanlarımızdan destek alın", getInTouch: "İletişime Geç", getInTouchDesc: "Sorularınız için buradayız.",
+			contactInfo: "İletişim Bilgileri", address: "Adres", phone: "Telefon", email: "E-postanız", businessHours: "Çalışma Saatleri", mondayFriday: "Pazartesi - Cuma", weekend: "Haftasonu",
+			contactForm: "Bize Yazın", firstName: "Ad", lastName: "Soyad", subject: "Konu", message: "Mesaj", sendMessage: "Mesaj Gönder",
+			testimonialTitle: "Yatırımcılar Ne Söylüyor", testimonialSubtitle: "Gerçek yorumlar.", clientTestimonial1: "Mükemmel platform.", clientTestimonial2: "Çok hızlılar.", clientTestimonial3: "Profesyonel destek harika.",
+			required: "Bu alan zorunludur.", invalidEmail: "Geçerli bir mail girin.", messageSent: "Başarılı!", messageError: "Bir hata oluştu.",
+			packagesTitle: "Yatırım Paketleri", packagesSubtitle: "Sizin için en uygun planı seçin.", choosePackage: "Paketi Seç", packageFeatures: "Paket Özellikleri",
+			minimumInvestment: "Min. Yatırım", maximumInvestment: "Max. Yatırım", duration: "Süre", roi: "ROI", dailyReturns: "Günlük Kazanç", totalReturn: "Toplam Kazanç",
+			instantWithdrawal: "Hızlı Çekim", support: "7/24 Destek", securePayment: "Güvenli Ödeme", riskLevel: "Risk Seviyesi", low: "Düşük", medium: "Orta", high: "Yüksek", days: "gün",
+			selectPlan: "Plan Seç", mostPopular: "En Popüler", recommended: "Önerilen",
+			starterPlan: "Başlangıç Planı", starterDesc: "Yeni başlayanlar için.", basicPlan: "Temel Plan", basicDesc: "Düzenli kazanç.", premiumPlan: "Premium Plan", premiumDesc: "Gelişmiş kullanıcılar.", professionalPlan: "Profesyonel Plan", professionalDesc: "Ciddi yatırımlar için elit paket.", vipPlan: "VIP Plan", vipDesc: "Maksimum ayrıcalık.",
+			dashboardTitle: "Panel", welcomeBack: "Tekrar Hoş Geldiniz", totalBalance: "Toplam Bakiye", availableBalance: "Mevcut Bakiye", totalEarnings: "Toplam Kazanç",
+			activeInvestments: "Aktif Yatırımlar", pendingWithdrawals: "Bekleyen Çekimler", recentTransactions: "Son İşlemler", quickActions: "Hızlı İşlemler", viewAllTransactions: "Tümü",
+			depositTitle: "Para Yatır", depositSubtitle: "Hesabınıza fon ekleyin.", selectPaymentMethod: "Ödeme Yöntemi Seçin", depositAmount: "Miktar",
+			minimumDeposit: "Min. Tutar", processingFee: "İşlem Ücreti", totalAmount: "Toplam", proceedToPayment: "Ödemeye Geç", depositHistory: "İşlem Geçmişi",
+			withdrawalTitle: "Para Çekme", withdrawalSubtitle: "Kazancınızı çekin.", withdrawalAmount: "Miktar", minimumWithdrawal: "Min. Tutar",
+			withdrawalFee: "İşlem Ücreti", netAmount: "Net Miktar", requestWithdrawal: "Talep Et", withdrawalHistory: "Geçmiş",
+			transferTitle: "Transfer Et", transferSubtitle: "Bir başkasına para gönder.", recipientEmail: "Alıcı Email", transferAmount: "Miktar", transferFee: "Ücret", transferNote: "Not", sendTransfer: "Gönder", transferHistory: "Geçmiş",
+			accountSettings: "Hesap Ayarları", profileInformation: "Profil", securitySettings: "Güvenlik", notificationSettings: "Bildirimler",
+			changePassword: "Şifre Değiştir", currentPassword: "Mevcut", newPassword: "Yeni", confirmPassword: "Tekrar", updateProfile: "Güncelle",
+			twoFactorAuth: "İki Aşamalı Doğrulama", emailNotifications: "Email Uyarıları", smsNotifications: "SMS",
+			chatTitle: "Destek Sohbeti", chatSubtitle: "Yardım isteyin", typeMessage: "Mesaj yazın...", onlineSupport: "Çevrimiçi Destek", chatHistory: "Geçmiş",
+			myInvestments: "Yatırımlarım", investmentOverview: "Özet", makeInvestment: "Yatırım Yap", investmentAmount: "Miktar", expectedReturn: "Beklenen",
+			maturityDate: "Vade Tarihi", investmentStatus: "Durum", active: "Aktif", completed: "Bitti", pending: "Bekliyor",
+			approved: "Onaylandı", rejected: "Reddedildi", processing: "İşleniyor", failed: "Hatalı", amount: "Tutar", date: "Tarih", status: "Durum", action: "İşlem", description: "Açıklama", reference: "Referans", type: "Tür",
+			loginTitle: "Hoş Geldiniz", loginSubtitle: "Devam etmek için", emailAddress: "Email", password: "Şifre", rememberMe: "Beni Hatırla", forgotPassword: "Şifremi Unuttum", signIn: "Giriş", noAccount: "Hesabınız yok mu?", signUp: "Kayıt Ol",
+			registerTitle: "Hesap Oluştur", registerSubtitle: "Başarılı yatırımcılar listesi.", fullName: "Tam İsim", agreeToTerms: "Kabul ediyorum.", createAccount: "Hesabı Aç", alreadyHaveAccount: "Mevcut musunuz?",
+			privacyPolicyTitle: "Gizlilik", privacyPolicyContent: "Koruyoruz.", termsOfServiceTitle: "Kullanım Şartları", termsOfServiceContent: "Gereklilikler.", riskDisclaimerTitle: "Risk Uyarısı", riskDisclaimerContent: "Risk içerir.",
+			lastUpdated: "Son", effectiveDate: "Yürürlükte", emailSupport: "Email Destek", emailSupportDesc: "24 saat içi.", phoneSupport: "Telefon Destek", phoneSupportDesc: "Direkt.", liveChat: "Canlı Destek", liveChatDesc: "Anlık.",
+			officeLocation: "Ofis", officeLocationDesc: "Ziyaret Edin", availableOnPlatform: "Açık", byAppointment: "Randevulu",
+			faqTitle: "Sık Sorulan Sorular", faqSubtitle: "Hızlı çözümler.", faq_q1_question: "Nasıl başlarım?", faq_q1_answer: "Kaydolun ve yatırım seçin.", faq_q2_question: "Minimum nedir?", faq_q2_answer: "Sadece 100 dolar.", faq_q3_question: "Güvenlik?", faq_q3_answer: "Askeri düzey.", faq_q4_question: "Para çekme?", faq_q4_answer: "Her an.",
+			secureInsured: "Güvenli ve Sigortalı", secureInsuredDesc: "Tüm protokoller işliyor.", provenReturns: "Kanıtlanmış Kazanç", provenReturnsDesc: "Profesyonel algoritmalar.", automatedTrading: "Otomatik Ticaret", automatedTradingDesc: "7/24 çalışır.", expertManagement: "Uzman Yöneticileri", expertManagementDesc: "Deneyimli mali uzmanlarca yönetilir.",
+			dailyProfitDistribution: "Günlük kazanç", realtimePortfolioTracking: "Takip", multiCurrencySupport: "Çoklu", customerSupport247: "7/24 Destek", mobileAppAccess: "Mobil uygulama", advancedAnalytics: "Gelişmiş analitik", platformFeaturesTitle: "Platform Özellikleri", platformFeaturesSubtitle: "Her şey bir arada."
+		}
+	}
 };
+
 
 i18n
 	.use(LanguageDetector)

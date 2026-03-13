@@ -226,9 +226,9 @@ export const Header = () => {
 							>
 								{t("contact")}
 							</Link>
-							{!isAuthenticated && (
+							{!isAuthenticated ? (
 								<div className="flex flex-col space-y-2 pt-4 border-t border-border">
-									<Link to="/login">
+									<Link to="/login" onClick={() => setIsMenuOpen(false)}>
 										<Button
 											variant="ghost"
 											className="w-full justify-start text-foreground hover:text-primary"
@@ -236,11 +236,37 @@ export const Header = () => {
 											{t("login")}
 										</Button>
 									</Link>
-									<Link to="/register">
+									<Link to="/register" onClick={() => setIsMenuOpen(false)}>
 										<Button className="w-full gradient-primary hover-glow text-primary-foreground">
 											{t("register")}
 										</Button>
 									</Link>
+								</div>
+							) : (
+								<div className="flex flex-col space-y-2 pt-4 border-t border-border">
+									<Link to={user?.role === "admin" ? "/admin" : "/dashboard"} onClick={() => setIsMenuOpen(false)}>
+										<Button variant="ghost" className="w-full justify-start text-foreground hover:text-primary space-x-2">
+											<LayoutDashboard className="w-4 h-4 mr-2" />
+											{t("dashboard")}
+										</Button>
+									</Link>
+									<Link to="/dashboard/settings" onClick={() => setIsMenuOpen(false)}>
+										<Button variant="ghost" className="w-full justify-start text-foreground hover:text-primary space-x-2">
+											<Settings className="w-4 h-4 mr-2" />
+											{t("settings")}
+										</Button>
+									</Link>
+									<Button 
+										variant="ghost" 
+										className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 space-x-2"
+										onClick={() => {
+											logout();
+											setIsMenuOpen(false);
+										}}
+									>
+										<LogOut className="w-4 h-4 mr-2" />
+										{t("logout")}
+									</Button>
 								</div>
 							)}
 						</nav>

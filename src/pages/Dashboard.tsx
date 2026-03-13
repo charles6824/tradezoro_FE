@@ -177,13 +177,13 @@ export const Dashboard = () => {
             {t('welcomeBack')}, {user?.firstName}! 👋
           </h1>
           <p className="text-muted-foreground mt-1">
-            Here's your investment overview for today
+           Refer 20 active trades to earn $1000
           </p>
           <div className="flex flex-wrap gap-3 mt-4">
             <Button onClick={() => navigate('/dashboard/deposit')} className="bg-primary hover:brightness-110 text-background-dark font-bold shadow-sm">
               Deposit
             </Button>
-            <Button onClick={() => navigate('/dashboard/investments/packages')} variant="outline" className="border-primary/50 text-foreground hover:bg-primary/5 font-medium shadow-sm border-2">
+            <Button onClick={() => navigate('/dashboard/packages')} variant="outline" className="border-primary/50 text-foreground hover:bg-primary/5 font-medium shadow-sm border-2">
               Invest Now
             </Button>
           </div>
