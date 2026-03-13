@@ -64,7 +64,7 @@ const LoginPage = () => {
 				<div className="layout-container flex h-full grow flex-col">
 					<header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 py-4 lg:px-40">
 						<div className="flex items-center gap-3">
-							<h2 className="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">
+							<h2 className="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight cursor-pointer" onClick={() => navigate("/")}>
 								TradeZero
 							</h2>
 						</div>
