@@ -37,32 +37,82 @@ export const WithdrawalPage = () => {
 	const [withdrawalAmount, setWithdrawalAmount] = useState("");
 	const [withdrawalMethod, setWithdrawalMethod] = useState("");
 	const [withdrawalAddress, setWithdrawalAddress] = useState("");
+	const [availableMethods, setAvailableMethods] = useState<{value: string, label: string, address: string}[]>([]);
+	const [isLoadingMethods, setIsLoadingMethods] = useState(true);
 
 	const minWithdrawal = 100;
 	const maxWithdrawal = currentUser?.balance || 0;
 	const processingFee = 10;
 	const recentWithdrawals = transactionsData?.data || [];
 
-	// Available withdrawal methods based on user's saved addresses
-	const availableMethods = [];
-	if (currentUser?.withdrawalAddresses?.tether)
-		availableMethods.push({
-			value: "tether",
-			label: "Tether (USDT)",
-			address: currentUser.withdrawalAddresses.tether,
-		});
-	if (currentUser?.withdrawalAddresses?.solana)
-		availableMethods.push({
-			value: "solana",
-			label: "Solana (SOL)",
-			address: currentUser.withdrawalAddresses.solana,
-		});
-	if (currentUser?.withdrawalAddresses?.trx)
-		availableMethods.push({
-			value: "trx",
-			label: "Tron (TRX)",
-			address: currentUser.withdrawalAddresses.trx,
-		});
+	// Fetch dynamic withdrawal methods from the backend settings
+	useEffect(() => {
+		const fetchPaymentConfig = async () => {
+			setIsLoadingMethods(true);
+			try {
+				const apiUrl = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
+				const response = await fetch(`${apiUrl}/api/settings/payment-addresses`);
+				
+				let fetchedMethods: {value: string, label: string, address?: string}[] = [];
+				if (response.ok) {
+					const data = await response.json();
+					if (Array.isArray(data)) {
+						fetchedMethods = data.map(m => {
+							let valueStr = m.name?.toLowerCase() || '';
+							if (valueStr.includes('tether') || valueStr.includes('usdt')) valueStr = 'usdt';
+							else if (valueStr.includes('solana') || valueStr.includes('sol')) valueStr = 'sol';
+							else if (valueStr.includes('tron') || valueStr.includes('trx')) valueStr = 'trx';
+							else if (valueStr.includes('bitcoin') || valueStr.includes('btc')) valueStr = 'btc';
+							else if (valueStr.includes('ethereum') || valueStr.includes('eth')) valueStr = 'eth';
+							
+							return {
+								value: valueStr,
+								label: m.name,
+								address: '' // User's withdrawal address mapped later
+							};
+						});
+					} else {
+						// Fallback legacy structure
+						if (data.tether) fetchedMethods.push({ value: "usdt", label: "Tether (USDT)", address: ""});
+						if (data.solana) fetchedMethods.push({ value: "sol", label: "Solana (SOL)", address: ""});
+						if (data.trx) fetchedMethods.push({ value: "trx", label: "Tron (TRX)", address: ""});
+					}
+				}
+
+				// Always ensure USDT is present if empty or not included
+				if (!fetchedMethods.find(m => m.value === 'usdt')) {
+					fetchedMethods.unshift({ value: 'usdt', label: 'Tether (USDT)', address: '' });
+				}
+
+				// Map to user's saved addresses
+				const finalMethods = fetchedMethods.map(m => {
+					let savedAddress = '';
+					if (m.value === 'usdt' && currentUser?.withdrawalAddresses?.tether) {
+						savedAddress = currentUser.withdrawalAddresses.tether;
+					} else if (m.value === 'sol' && currentUser?.withdrawalAddresses?.solana) {
+						savedAddress = currentUser.withdrawalAddresses.solana;
+					} else if (m.value === 'trx' && currentUser?.withdrawalAddresses?.trx) {
+						savedAddress = currentUser.withdrawalAddresses.trx;
+					}
+					return { ...m, address: savedAddress };
+				}).filter(m => m.address); // Only show methods the user has actually configured an address for
+
+				setAvailableMethods(finalMethods);
+			} catch (error) {
+				console.error("Error fetching withdrawal methods:", error);
+				// Fallback to defaults
+				const fallbacks = [];
+				if (currentUser?.withdrawalAddresses?.tether) fallbacks.push({value: "usdt", label: "Tether (USDT)", address: currentUser.withdrawalAddresses.tether});
+				if (currentUser?.withdrawalAddresses?.solana) fallbacks.push({value: "sol", label: "Solana (SOL)", address: currentUser.withdrawalAddresses.solana});
+				if (currentUser?.withdrawalAddresses?.trx) fallbacks.push({value: "trx", label: "Tron (TRX)", address: currentUser.withdrawalAddresses.trx});
+				setAvailableMethods(fallbacks);
+			} finally {
+				setIsLoadingMethods(false);
+			}
+		};
+		
+		fetchPaymentConfig();
+	}, [currentUser]);
 
 	// Auto-fill address when method is selected
 	useEffect(() => {

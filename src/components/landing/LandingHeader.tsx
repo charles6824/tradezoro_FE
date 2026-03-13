@@ -144,7 +144,7 @@ export const LandingHeader = () => {
 						<span className="material-symbols-outlined text-2xl">close</span>
 					</button>
 					<div className="flex flex-col items-center gap-8 mt-8">
-						{navLinks.map((link) => (
+						{/* {navLinks.map((link) => (
 							<Link
 								key={link.label}
 								className="text-lg font-bold text-slate-100 hover:text-primary transition-colors"
@@ -153,14 +153,71 @@ export const LandingHeader = () => {
 							>
 								{link.label}
 							</Link>
-						))}
+						))} */}
 
-						<button className="w-full px-8 py-3 rounded-full text-base font-bold border border-primary/20 hover:bg-primary/10 transition-all mt-2" onClick={ () => navigate("/login")}>
-							Login
-						</button>
-						<button className="w-full px-8 py-3 rounded-full font-bold bg-primary text-background-dark hover:brightness-110 transition-all" onClick={ () => navigate("/register")}>
-							Sign Up
-						</button>
+						<div className="md:hidden">
+							<LanguageSelector />
+						</div>
+
+						{!isAuthenticated ? (
+							<>
+								<button
+									className="px-5 py-2.5 rounded-full text-sm font-bold border border-primary/20 hover:bg-primary/10 transition-all text-slate-100"
+									onClick={() => navigate("/login")}
+								>
+									Login
+								</button>
+								<button className="hidden md:block px-5 py-2.5 rounded-full text-sm font-bold bg-primary text-background-dark hover:brightness-110 transition-all" onClick={() => navigate("/register")}>
+									Sign Up
+								</button>
+							</>
+						) : (
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<button className="flex items-center space-x-2 text-slate-100 hover:text-primary transition-all p-2 rounded-full hover:bg-primary/10">
+										<Avatar className="w-8 h-8">
+											<AvatarFallback className="bg-primary text-primary-foreground text-sm font-bold">
+												{user?.firstName?.[0]}
+												{user?.lastName?.[0]}
+											</AvatarFallback>
+										</Avatar>
+										<span className="hidden md:block font-medium">
+											{user?.firstName}
+										</span>
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="end"
+									className="w-48 bg-background border-border"
+								>
+									<DropdownMenuItem asChild>
+										<Link
+											to={user?.role === "admin" ? "/admin" : "/dashboard"}
+											className="flex items-center space-x-2 cursor-pointer"
+										>
+											<LayoutDashboard className="w-4 h-4" />
+											<span>Dashboard</span>
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+										<Link
+											to="/dashboard/settings"
+											className="flex items-center space-x-2 cursor-pointer"
+										>
+											<Settings className="w-4 h-4" />
+											<span>Settings</span>
+										</Link>
+									</DropdownMenuItem>
+									<DropdownMenuItem
+										onClick={logout}
+										className="flex items-center space-x-2 text-destructive focus:text-destructive cursor-pointer"
+									>
+										<LogOut className="w-4 h-4" />
+										<span>Logout</span>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						)}
 					</div>
 				</div>
 			)}

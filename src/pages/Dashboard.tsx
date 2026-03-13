@@ -56,7 +56,7 @@ export const Dashboard = () => {
   // Calculate stats from actual investment data
   const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
   const totalReturns = investments.reduce((sum, inv) => {
-    const pkg = inv.packageId;
+    const pkg:any = inv.packageId;
     const daysPassed = Math.floor((Date.now() - new Date(inv.createdAt).getTime()) / (1000 * 60 * 60 * 24));
     const totalDays = pkg?.duration || 30;
     const dailyReturn = (inv.amount * (pkg?.roi || 0) / 100) / totalDays;
@@ -177,13 +177,13 @@ export const Dashboard = () => {
             {t('welcomeBack')}, {user?.firstName}! 👋
           </h1>
           <p className="text-muted-foreground mt-1">
-           Refer 20 active trades to earn $1000
+           Refer 20 active traders to earn $1000
           </p>
           <div className="flex flex-wrap gap-3 mt-4">
             <Button onClick={() => navigate('/dashboard/deposit')} className="bg-primary hover:brightness-110 text-background-dark font-bold shadow-sm">
               Deposit
             </Button>
-            <Button onClick={() => navigate('/dashboard/packages')} variant="outline" className="border-primary/50 text-foreground hover:bg-primary/5 font-medium shadow-sm border-2">
+            <Button onClick={() => navigate('/dashboard/packages')} className="bg-primary hover:brightness-110 text-background-dark font-bold shadow-sm">
               Invest Now
             </Button>
           </div>
@@ -326,7 +326,7 @@ export const Dashboard = () => {
             <div className="space-y-4">
               {investments.length > 0 ? (
                 investments.map((investment) => {
-                const pkg = investment.packageId;
+                const pkg:any = investment.packageId;
                 const daysPassed = Math.floor((Date.now() - new Date(investment.createdAt).getTime()) / (1000 * 60 * 60 * 24));
                 const totalDays = pkg?.duration || 30;
                 const progress = Math.min((daysPassed / totalDays) * 100, 100);
@@ -399,7 +399,7 @@ export const Dashboard = () => {
         <CardContent>
           <div className="space-y-4">
             {transactions.length > 0 ? (
-              transactions.slice(0, 5).map((transaction) => (
+              transactions.slice(0, 5).map((transaction: any) => (
                 <div key={transaction._id} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
                   <div className="flex items-center space-x-3">
                     <div className={`p-2 rounded-lg ${

@@ -42,7 +42,7 @@ const userNavItems = [
   { title: 'transfer', url: '/dashboard/transfer', icon: ArrowLeftRight },
   { title: 'packages', url: '/dashboard/packages', icon: Package },
   { title: 'investments', url: '/dashboard/investments', icon: TrendingUp },
-  { title: 'chatTitle', url: '/dashboard/chat', icon: MessageCircle },
+  { title: 'chatTitle', url: 'https://t.me/tradezero_community', icon: MessageCircle },
   { title: 'Referrals', url: '/dashboard/referrals', icon: Users },
   { title: 'settings', url: '/dashboard/settings', icon: Settings },
 ];

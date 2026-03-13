@@ -77,7 +77,7 @@ export const AdminTransactionsPage = () => {
   };
 
   const transactions = transactionsData?.data || [];
-  const filteredTransactions = transactions.filter(transaction => {
+  const filteredTransactions = transactions.filter((transaction:any) => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     return (
@@ -105,7 +105,7 @@ export const AdminTransactionsPage = () => {
   };
 
   const getTypeBadge = (type: string) => {
-    const colors = {
+    const colors: Record<string, "default" | "destructive" | "secondary" | "outline"> = {
       deposit: 'default',
       withdrawal: 'secondary',
       investment: 'outline',
@@ -113,7 +113,7 @@ export const AdminTransactionsPage = () => {
       bonus: 'default'
     };
     return (
-      <Badge variant={colors[type as keyof typeof colors] || 'outline'}>
+      <Badge variant={colors[type] || 'outline'}>
         {type}
       </Badge>
     );
@@ -200,7 +200,7 @@ export const AdminTransactionsPage = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredTransactions.map((transaction) => (
+              {filteredTransactions.map((transaction: any) => (
                 <TableRow key={transaction._id} className="hover:bg-muted/50">
                   <TableCell className="font-medium font-mono text-xs">
                     {transaction.reference || transaction._id?.slice(-8)}

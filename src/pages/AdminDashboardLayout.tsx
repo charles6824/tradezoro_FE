@@ -36,10 +36,10 @@ const adminNavItems = [
   { title: 'Transactions', url: '/admin/transactions', icon: CreditCard },
   { title: 'Investments', url: '/admin/investments', icon: TrendingUp },
   { title: 'Packages', url: '/admin/packages', icon: Package },
-  { title: 'Fund Users', url: '/admin/fund', icon: DollarSign },
   { title: 'Payment Config', url: '/admin/payment-config', icon: Wallet },
+  { title: 'Messages', url: '/admin/messages', icon: MessageCircle },
   { title: 'Referrals', url: '/admin/referrals', icon: Users },
-  { title: 'Chat', url: '/admin/chat', icon: MessageCircle },
+  { title: 'Chat', url: 'https://t.me/tradezero_community', icon: MessageCircle },
   { title: 'Reports', url: '/admin/reports', icon: FileText },
   { title: 'Settings', url: '/admin/settings', icon: Settings },
 ];
