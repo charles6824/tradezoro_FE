@@ -63,13 +63,11 @@ export const WithdrawalPage = () => {
 				savedAddress = (currentUser.withdrawalAddresses as any).solana;
 			}
 
-			if (savedAddress && savedAddress.trim() !== '') {
-				finalMethods.push({
-					value: currency.id,
-					label: `${currency.name} (${currency.symbol}) - ${currency.network}`,
-					address: savedAddress
-				});
-			}
+			finalMethods.push({
+				value: currency.id,
+				label: `${currency.name} (${currency.symbol}) - ${currency.network}`,
+				address: savedAddress || ""
+			});
 		}
 
 		setAvailableMethods(finalMethods);
@@ -263,17 +261,16 @@ export const WithdrawalPage = () => {
 							)}
 						</div>
 
-						{withdrawalMethod && withdrawalAddress && (
+						{withdrawalMethod && (
 							<div>
 								<Label>Withdrawal Address</Label>
 								<Input
 									value={withdrawalAddress}
-									readOnly
-									className="bg-muted/50"
+									onChange={(e) => setWithdrawalAddress(e.target.value)}
+                                    placeholder="Enter your wallet address"
 								/>
 								<p className="text-sm text-muted-foreground mt-1">
-									This address is from your saved withdrawal methods in
-									Settings.
+									Please ensure this address matches the selected withdrawal network.
 								</p>
 							</div>
 						)}
@@ -333,6 +330,7 @@ export const WithdrawalPage = () => {
 								parseFloat(withdrawalAmount) < minWithdrawal ||
 								parseFloat(withdrawalAmount) > maxWithdrawal ||
 								!withdrawalMethod ||
+								!withdrawalAddress ||
 								availableMethods.length === 0
 							}
 						>
