@@ -11,7 +11,7 @@ import { ChangePasswordModal } from '@/components/ui/change-password-modal';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useUpdateProfileMutation, useGetMeQuery, useChangePasswordMutation } from '@/store/authApi';
-import { SUPPORTED_CURRENCIES } from '@/utils/paymentConfig';
+import { WITHDRAWAL_CURRENCIES } from '@/utils/paymentConfig';
 import { COUNTRIES } from '@/utils/countries';
 import { User, Wallet, Shield, Bell, CreditCard, CheckCircle2, AlertCircle, Lock } from 'lucide-react';
 
@@ -32,9 +32,17 @@ export const SettingsPage = () => {
     country: '',
     gender: '',
     withdrawalAddresses: {
-      tether: '',
-      solana: '',
-      trx: ''
+      btc: '',
+      eth: '',
+      usdt_trc20: '',
+      usdt_erc20: '',
+      usdc: '',
+      trx: '',
+      sol: '',
+      xrp: '',
+      ltc: '',
+      bnb: '',
+      matic: ''
     }
   });
 
@@ -50,9 +58,17 @@ export const SettingsPage = () => {
         country: currentUser.country || '',
         gender: currentUser.gender || '',
         withdrawalAddresses: {
-          tether: currentUser.withdrawalAddresses?.tether || '',
-          solana: currentUser.withdrawalAddresses?.solana || '',
-          trx: currentUser.withdrawalAddresses?.trx || ''
+          btc: currentUser.withdrawalAddresses?.btc || '',
+          eth: currentUser.withdrawalAddresses?.eth || '',
+          usdt_trc20: currentUser.withdrawalAddresses?.usdt_trc20 || currentUser.withdrawalAddresses?.tether || '',
+          usdt_erc20: currentUser.withdrawalAddresses?.usdt_erc20 || '',
+          usdc: currentUser.withdrawalAddresses?.usdc || '',
+          trx: currentUser.withdrawalAddresses?.trx || '',
+          sol: currentUser.withdrawalAddresses?.sol || currentUser.withdrawalAddresses?.solana || '',
+          xrp: currentUser.withdrawalAddresses?.xrp || '',
+          ltc: currentUser.withdrawalAddresses?.ltc || '',
+          bnb: currentUser.withdrawalAddresses?.bnb || '',
+          matic: currentUser.withdrawalAddresses?.matic || ''
         }
       });
     }
@@ -302,10 +318,10 @@ export const SettingsPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {SUPPORTED_CURRENCIES.map((currency) => {
-              const currencyKey = currency.symbol.toLowerCase() === 'usdt' ? 'tether' : currency.symbol.toLowerCase();
+            {WITHDRAWAL_CURRENCIES.map((currency) => {
+              const currencyKey = currency.id;
               return (
-                <div key={currency.symbol}>
+                <div key={currency.id}>
                   <Label htmlFor={currencyKey}>
                     {currency.name} ({currency.symbol}) - {currency.network}
                   </Label>
@@ -451,13 +467,17 @@ export const SettingsPage = () => {
 
             <div>
               <Label>Withdrawal Address (At least one required) *</Label>
-              <div className="space-y-2">
-                {SUPPORTED_CURRENCIES.map((currency) => {
-                  const currencyKey = currency.symbol.toLowerCase() === 'usdt' ? 'tether' : currency.symbol.toLowerCase();
+              <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                {WITHDRAWAL_CURRENCIES.map((currency) => {
+                  const currencyKey = currency.id;
                   return (
-                    <div key={currency.symbol}>
+                    <div key={currency.id}>
+                      <Label htmlFor={`setup-${currencyKey}`} className="text-xs mb-1 block">
+                        {currency.name} ({currency.network})
+                      </Label>
                       <Input
-                        placeholder={`${currency.name} (${currency.symbol}) address`}
+                        id={`setup-${currencyKey}`}
+                        placeholder={`${currency.symbol} address`}
                         value={profileData.withdrawalAddresses[currencyKey as keyof typeof profileData.withdrawalAddresses] || ''}
                         onChange={(e) => setProfileData({
                           ...profileData,

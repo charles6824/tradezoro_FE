@@ -29,7 +29,7 @@ export const AdminUsersPage = () => {
   const [updateUserStatus] = useUpdateUserStatusMutation();
   const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
   
-  const users = usersData?.data || [];
+  const users:any = usersData?.data || [];
   const filteredUsers = users.filter((user: any) => user.role === 'user');
 
   const handleActivateUser = async (userId: string) => {

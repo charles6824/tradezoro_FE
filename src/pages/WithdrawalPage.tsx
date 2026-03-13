@@ -23,6 +23,7 @@ import { useGetTransactionsQuery } from "@/store/transactionsApi";
 import { useGetUserProfileQuery } from "@/store/userApi";
 import { useGetInvestmentsQuery } from "@/store/investmentsApi";
 import { Wallet, AlertTriangle, Clock, CheckCircle2 } from "lucide-react";
+import { WITHDRAWAL_CURRENCIES } from "@/utils/paymentConfig";
 
 export const WithdrawalPage = () => {
 	const { toast } = useToast();
@@ -37,32 +38,43 @@ export const WithdrawalPage = () => {
 	const [withdrawalAmount, setWithdrawalAmount] = useState("");
 	const [withdrawalMethod, setWithdrawalMethod] = useState("");
 	const [withdrawalAddress, setWithdrawalAddress] = useState("");
+	const [availableMethods, setAvailableMethods] = useState<{value: string, label: string, address: string}[]>([]);
+	const [isLoadingMethods, setIsLoadingMethods] = useState(true);
 
 	const minWithdrawal = 100;
 	const maxWithdrawal = currentUser?.balance || 0;
 	const processingFee = 10;
 	const recentWithdrawals = transactionsData?.data || [];
 
-	// Available withdrawal methods based on user's saved addresses
-	const availableMethods = [];
-	if (currentUser?.withdrawalAddresses?.tether)
-		availableMethods.push({
-			value: "tether",
-			label: "Tether (USDT)",
-			address: currentUser.withdrawalAddresses.tether,
-		});
-	if (currentUser?.withdrawalAddresses?.solana)
-		availableMethods.push({
-			value: "solana",
-			label: "Solana (SOL)",
-			address: currentUser.withdrawalAddresses.solana,
-		});
-	if (currentUser?.withdrawalAddresses?.trx)
-		availableMethods.push({
-			value: "trx",
-			label: "Tron (TRX)",
-			address: currentUser.withdrawalAddresses.trx,
-		});
+	// Map dynamic withdrawal methods from the predefined withdrawal config
+	useEffect(() => {
+		setIsLoadingMethods(true);
+        if (!currentUser) return;
+
+		let finalMethods: {value: string, label: string, address: string}[] = [];
+		for (const currency of WITHDRAWAL_CURRENCIES) {
+			let savedAddress = (currentUser.withdrawalAddresses as any)?.[currency.id];
+			
+			// Legacy fallbacks mapping
+			if (currency.id === 'usdt_trc20' && !savedAddress && (currentUser.withdrawalAddresses as any)?.tether) {
+				savedAddress = (currentUser.withdrawalAddresses as any).tether;
+			}
+			if (currency.id === 'sol' && !savedAddress && (currentUser.withdrawalAddresses as any)?.solana) {
+				savedAddress = (currentUser.withdrawalAddresses as any).solana;
+			}
+
+			if (savedAddress && savedAddress.trim() !== '') {
+				finalMethods.push({
+					value: currency.id,
+					label: `${currency.name} (${currency.symbol}) - ${currency.network}`,
+					address: savedAddress
+				});
+			}
+		}
+
+		setAvailableMethods(finalMethods);
+		setIsLoadingMethods(false);
+	}, [currentUser]);
 
 	// Auto-fill address when method is selected
 	useEffect(() => {

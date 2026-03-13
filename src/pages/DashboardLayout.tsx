@@ -42,7 +42,7 @@ const userNavItems = [
   { title: 'transfer', url: '/dashboard/transfer', icon: ArrowLeftRight },
   { title: 'packages', url: '/dashboard/packages', icon: Package },
   { title: 'investments', url: '/dashboard/investments', icon: TrendingUp },
-  { title: 'chatTitle', url: '/dashboard/chat', icon: MessageCircle },
+  { title: 'chatTitle', url: 'https://t.me/tradezero_community', icon: MessageCircle },
   { title: 'Referrals', url: '/dashboard/referrals', icon: Users },
   { title: 'settings', url: '/dashboard/settings', icon: Settings },
 ];
@@ -184,7 +184,7 @@ export const DashboardLayout = () => {
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-600">
                     <Wallet className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-xl font-bold text-slate-900 hidden sm:block">
+                  <span className="text-xl font-bold text-white hidden sm:block">
                     TradeZero
                   </span>
                 </Link>

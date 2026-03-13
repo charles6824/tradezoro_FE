@@ -174,6 +174,16 @@ export const adminApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Admin', 'Investment'],
     }),
+    sendAdminMessage: builder.mutation<
+      { success: boolean; message: string },
+      { emails: string[]; subject: string; html: string }
+    >({
+      query: (data) => ({
+        url: `/admin/messages`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -192,4 +202,5 @@ export const {
   useDeleteUserMutation,
   useCompleteInvestmentMutation,
   useActivateInvestmentMutation,
+  useSendAdminMessageMutation,
 } = adminApi;
