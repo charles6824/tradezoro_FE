@@ -51,6 +51,7 @@ export const DepositPage = () => {
 
       if (settingsResponse.ok) {
           const settingsObj = await settingsResponse.json();
+          // The /api/settings route returns an object mapping directly: { minDepositAmount: '100', ... }
           if (settingsObj?.data?.minDepositAmount) {
               setMinDeposit(Number(settingsObj.data.minDepositAmount));
           }
