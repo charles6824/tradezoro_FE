@@ -43,6 +43,20 @@ export const mockCryptoPrices = [
 		change: -0.12,
 		changePercent: -1.74,
 	},
+	{
+		symbol: "BTCM",
+		name: "Bitmain",
+		price: 45.23,
+		change: 1.45,
+		changePercent: 3.21,
+	},
+	{
+		symbol: "SEAL",
+		name: "Bitdeer",
+		price: 8.92,
+		change: 0.65,
+		changePercent: 7.85,
+	},
 ];
 
 export const mockPackages: InvestmentPackage[] = [

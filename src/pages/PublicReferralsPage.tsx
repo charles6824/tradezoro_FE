@@ -6,7 +6,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Plus, Trash2, DollarSign, Database, Search, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Users, Plus, Trash2, DollarSign, Database, Search, Download, ChevronLeft, ChevronRight, Pencil } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
 
@@ -17,6 +19,11 @@ export const PublicReferralsPage = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState<string | null>(null);
+
+    // Edit Modal State
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editingUser, setEditingUser] = useState<any>(null);
+    const [newReferralCode, setNewReferralCode] = useState('');
 
     // Filters & Pagination
     const [searchQuery, setSearchQuery] = useState('');
@@ -62,6 +69,28 @@ export const PublicReferralsPage = () => {
             const res = await fetch(`${API_URL}/api/public-referrals/delete/${referralId}`, { method: 'DELETE' });
             if (!res.ok) throw new Error('Failed to delete referral');
             toast({ title: 'Success', description: 'Referral user removed.' });
+            fetchUsers();
+        } catch (error: any) {
+            toast({ title: 'Error', description: error.message, variant: 'destructive' });
+        } finally {
+            setActionLoading(null);
+        }
+    };
+
+    const handleUpdateReferralCode = async () => {
+        if (!editingUser) return;
+        try {
+            setActionLoading(`edit-${editingUser._id}`);
+            const res = await fetch(`${API_URL}/api/public-referrals/${editingUser._id}/code`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ referralCode: newReferralCode.trim() })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Failed to update referral code');
+            
+            toast({ title: 'Success', description: 'Referral code updated successfully.' });
+            setEditModalOpen(false);
             fetchUsers();
         } catch (error: any) {
             toast({ title: 'Error', description: error.message, variant: 'destructive' });
@@ -213,6 +242,18 @@ export const PublicReferralsPage = () => {
                                                 <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30 shrink-0">
                                                     {user.referralCode || 'No Code Found'}
                                                 </Badge>
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="icon" 
+                                                    className="w-6 h-6 hover:bg-primary/20 text-primary border border-primary/20"
+                                                    onClick={() => {
+                                                        setEditingUser(user);
+                                                        setNewReferralCode(user.referralCode || '');
+                                                        setEditModalOpen(true);
+                                                    }}
+                                                >
+                                                    <Pencil className="w-3 h-3" />
+                                                </Button>
                                             </div>
                                             <CardDescription className="flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-400">
                                                 <span className="truncate w-full sm:w-auto block">{user.email}</span>
@@ -317,6 +358,43 @@ export const PublicReferralsPage = () => {
                 )}
 
             </div>
+            {/* Edit Referral Code Modal */}
+            <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
+                <DialogContent className="bg-background-dark border-primary/20 text-slate-100">
+                    <DialogHeader>
+                        <DialogTitle>Update Referral Code</DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                            Change the referral code for {editingUser?.firstName} {editingUser?.lastName}.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <Label htmlFor="refCode" className="text-slate-300">New Referral Code</Label>
+                        <Input
+                            id="refCode"
+                            value={newReferralCode}
+                            onChange={(e) => setNewReferralCode(e.target.value)}
+                            className="bg-[#08150d] border-primary/20 text-slate-100 focus-visible:ring-primary mt-2"
+                            placeholder="Enter new code"
+                        />
+                    </div>
+                    <DialogFooter>
+                        <Button 
+                            variant="outline" 
+                            onClick={() => setEditModalOpen(false)}
+                            className="border-primary/20 text-slate-300 hover:text-white bg-transparent"
+                        >
+                            Cancel
+                        </Button>
+                        <Button 
+                            onClick={handleUpdateReferralCode}
+                            disabled={!newReferralCode.trim() || actionLoading === `edit-${editingUser?._id}`}
+                            className="bg-primary text-background-dark hover:brightness-110 font-bold"
+                        >
+                            {actionLoading === `edit-${editingUser?._id}` ? 'Saving...' : 'Save Changes'}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
