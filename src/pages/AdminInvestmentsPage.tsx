@@ -152,85 +152,90 @@ export const AdminInvestmentsPage = () => {
             </Select>
           </div>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Investment ID</TableHead>
-                <TableHead>User</TableHead>
-                <TableHead>Package</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Current Value</TableHead>
-                <TableHead>ROI</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Duration</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredInvestments.map((investment) => {
-                const roi = investment.currentValue && investment.amount ? 
-                  ((investment.currentValue - investment.amount) / investment.amount * 100).toFixed(2) : '0.00';
-                const startDate = new Date(investment.createdAt);
-                const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-                
-                return (
-                  <TableRow key={investment._id} className="hover:bg-muted/50">
-                    <TableCell className="font-medium font-mono text-xs">
-                      {investment._id?.slice(-8)}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-col">
-                        <span className="font-medium">
-                          {investment.userId?.firstName} {investment.userId?.lastName}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {investment.userId?.email}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{investment.packageId?.name || 'N/A'}</TableCell>
-                    <TableCell className="font-medium">
-                      ${investment.amount?.toLocaleString() || '0'}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      ${investment.currentValue?.toLocaleString() || investment.amount?.toLocaleString() || '0'}
-                    </TableCell>
-                    <TableCell className="text-green-600 font-medium">
-                      +{roi}%
-                    </TableCell>
-                    <TableCell>{getStatusBadge(investment.status)}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm">{daysRunning} days</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => navigate(`/admin/investments/${investment._id}`)}
-                      >
-                        <Eye className="w-4 h-4 mr-1" />
-                        View Details
-                      </Button>
-                    </TableCell>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="min-w-[800px] px-4 sm:px-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Investment ID</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Package</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Current Value</TableHead>
+                    <TableHead>ROI</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Duration</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                );
-              })}
-              {filteredInvestments.length === 0 && (
-                <TableRow>
-                  <TableCell colSpan={9} className="text-center py-8">
-                    <div className="text-muted-foreground">
-                      <TrendingUp className="w-12 h-12 mx-auto mb-4" />
-                      <p>No investments found</p>
-                      <p className="text-sm">Investment data will appear here when users make investments</p>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredInvestments.map((investment: any) => {
+                    const roi = investment.currentValue && investment.amount ? 
+                      ((investment.currentValue - investment.amount) / investment.amount * 100).toFixed(2) : '0.00';
+                    const startDate = new Date(investment.createdAt);
+                    const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+                    
+                    return (
+                      <TableRow key={investment._id} className="hover:bg-muted/50">
+                        <TableCell className="font-medium font-mono text-xs">
+                          {investment._id?.slice(-8)}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col">
+                            <span className="font-medium">
+                              {investment.userId?.firstName} {investment.userId?.lastName}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {investment.userId?.email}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>{investment.packageId?.name || 'N/A'}</TableCell>
+                        <TableCell className="font-medium">
+                          ${investment.amount?.toLocaleString() || '0'}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          ${investment.currentValue?.toLocaleString() || investment.amount?.toLocaleString() || '0'}
+                        </TableCell>
+                        <TableCell className="text-green-600 font-medium">
+                          +{roi}%
+                        </TableCell>
+                        <TableCell>{getStatusBadge(investment.status)}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1 whitespace-nowrap">
+                            <Calendar className="w-4 h-4 text-muted-foreground" />
+                            <span className="text-sm">{daysRunning} days</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => navigate(`/admin/investments/${investment._id}`)}
+                            className="whitespace-nowrap"
+                          >
+                            <Eye className="w-4 h-4 mr-1" />
+                            View Details
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  {filteredInvestments.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={9} className="text-center py-8">
+                        <div className="text-muted-foreground">
+                          <TrendingUp className="w-12 h-12 mx-auto mb-4" />
+                          <p>No investments found</p>
+                          <p className="text-sm">Investment data will appear here when users make investments</p>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
