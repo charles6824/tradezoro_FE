@@ -21,6 +21,7 @@ import { LogoutConfirmDialog } from '@/components/LogoutConfirmDialog';
 import { ReliableLanguageSelector } from '@/components/ReliableLanguageSelector';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
+import { useGetUserProfileQuery } from '@/store/userApi';
 import { 
   LayoutDashboard, 
   Wallet, 
@@ -49,6 +50,9 @@ const userNavItems = [
 
 export const DashboardSidebar = () => {
   const { user, logout } = useAuth();
+  const { data: userProfileData } = useGetUserProfileQuery(undefined, { skip: !user });
+  const currentUser = userProfileData?.data || user;
+  
   const { state, isMobile, setOpenMobile } = useSidebar();
   const location = useLocation();
   const [showSetupModal, setShowSetupModal] = useState(false);
@@ -56,10 +60,10 @@ export const DashboardSidebar = () => {
 
   useEffect(() => {
     // Check if user needs to complete profile setup
-    if (user && !user.isProfileSetup) {
+    if (currentUser && !currentUser.isProfileSetup) {
       setShowSetupModal(true);
     }
-  }, [user]);
+  }, [currentUser]);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
@@ -91,18 +95,18 @@ export const DashboardSidebar = () => {
             <div className="flex items-center space-x-3">
               <Avatar className="w-10 h-10">
                 <AvatarFallback className="bg-primary text-primary-foreground">
-                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                  {currentUser?.firstName?.[0]}{currentUser?.lastName?.[0]}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  {user?.firstName} {user?.lastName}
+                  {currentUser?.firstName} {currentUser?.lastName}
                 </p>
                 <div className="flex items-center space-x-2">
                   <p className="text-xs text-sidebar-foreground/70">
-                    ${user?.balance?.toLocaleString() || '0.00'}
+                    ${currentUser?.balance?.toLocaleString() || '0.00'}
                   </p>
-                  {user?.isVerified && (
+                  {currentUser?.isVerified && (
                     <Badge variant="secondary" className="text-xs px-1 py-0">
                       ✓ Verified
                     </Badge>

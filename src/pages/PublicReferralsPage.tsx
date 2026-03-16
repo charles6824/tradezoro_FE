@@ -25,6 +25,17 @@ export const PublicReferralsPage = () => {
     const [editingUser, setEditingUser] = useState<any>(null);
     const [newReferralCode, setNewReferralCode] = useState('');
 
+    // Toggle logic for referring users list
+    const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
+    const toggleExpand = (id: string) => {
+        setExpandedUsers(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    };
+
     // Filters & Pagination
     const [searchQuery, setSearchQuery] = useState('');
     const [dateFilter, setDateFilter] = useState('all'); // all, 24h, 7d, 30d
@@ -278,43 +289,65 @@ export const PublicReferralsPage = () => {
                                         </div>
                                     </div>
                                 </CardHeader>
-                                <CardContent className="p-0 overflow-x-auto">
+                                <CardContent className="p-0">
                                     {user.referredUsers?.length > 0 ? (
-                                        <div className="min-w-[600px]">
-                                            <table className="w-full text-sm text-left align-middle text-slate-300">
-                                                <thead className="text-xs uppercase bg-[#08150d] font-semibold text-slate-400 border-b border-primary/20">
-                                                    <tr>
-                                                        <th className="px-6 py-3">Referred User Name</th>
-                                                        <th className="px-6 py-3">Email</th>
-                                                        <th className="px-6 py-3">Join Date</th>
-                                                        <th className="px-6 py-3 text-right">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-primary/10 bg-[#0a1b12]">
-                                                    {user.referredUsers.map((refUser: any) => (
-                                                        <tr key={refUser._id} className="hover:bg-primary/5 transition-colors">
-                                                            <td className="px-6 py-3 font-medium text-slate-100 max-w-[200px] truncate">
-                                                                {refUser.firstName} {refUser.lastName}
-                                                            </td>
-                                                            <td className="px-6 py-3 max-w-[200px] truncate">{refUser.email}</td>
-                                                            <td className="px-6 py-3 whitespace-nowrap">
-                                                                {new Date(refUser.createdAt).toLocaleDateString()}
-                                                            </td>
-                                                            <td className="px-6 py-3 text-right whitespace-nowrap">
-                                                                <Button
-                                                                    variant="ghost"
-                                                                    size="sm"
-                                                                    className="h-8 text-red-400 hover:text-red-300 hover:bg-red-400/10"
-                                                                    onClick={() => handleDeleteReferral(refUser._id)}
-                                                                    disabled={actionLoading === `del-${refUser._id}`}
-                                                                >
-                                                                    {actionLoading === `del-${refUser._id}` ? '...' : <Trash2 className="w-4 h-4" />}
-                                                                </Button>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                        <div className="flex flex-col">
+                                            <div className="p-4 flex items-center justify-between text-slate-300">
+                                                <div className="flex items-center gap-2">
+                                                    <Users className="w-5 h-5 text-primary" />
+                                                    <span className="font-semibold text-slate-100">
+                                                        {user.referredUsers.length} Referred {user.referredUsers.length === 1 ? 'User' : 'Users'}
+                                                    </span>
+                                                </div>
+                                                <Button 
+                                                    variant="outline" 
+                                                    size="sm" 
+                                                    className="bg-[#08150d] border-primary/20 text-slate-300 hover:text-white"
+                                                    onClick={() => toggleExpand(user._id)}
+                                                >
+                                                    {expandedUsers.has(user._id) ? 'Hide Emails' : 'View Emails'}
+                                                </Button>
+                                            </div>
+                                            {expandedUsers.has(user._id) && (
+                                                <div className="overflow-x-auto border-t border-primary/20">
+                                                    <div className="min-w-[600px]">
+                                                        <table className="w-full text-sm text-left align-middle text-slate-300">
+                                                            <thead className="text-xs uppercase bg-[#08150d] font-semibold text-slate-400 border-b border-primary/20">
+                                                                <tr>
+                                                                    <th className="px-6 py-3">Referred User Name</th>
+                                                                    <th className="px-6 py-3">Email</th>
+                                                                    <th className="px-6 py-3">Join Date</th>
+                                                                    <th className="px-6 py-3 text-right">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className="divide-y divide-primary/10 bg-[#0a1b12]">
+                                                                {user.referredUsers.map((refUser: any) => (
+                                                                    <tr key={refUser._id} className="hover:bg-primary/5 transition-colors">
+                                                                        <td className="px-6 py-3 font-medium text-slate-100 max-w-[200px] truncate">
+                                                                            {refUser.firstName} {refUser.lastName}
+                                                                        </td>
+                                                                        <td className="px-6 py-3 max-w-[200px] truncate">{refUser.email}</td>
+                                                                        <td className="px-6 py-3 whitespace-nowrap">
+                                                                            {new Date(refUser.createdAt).toLocaleDateString()}
+                                                                        </td>
+                                                                        <td className="px-6 py-3 text-right whitespace-nowrap">
+                                                                            <Button
+                                                                                variant="ghost"
+                                                                                size="sm"
+                                                                                className="h-8 text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                                                                                onClick={() => handleDeleteReferral(refUser._id)}
+                                                                                disabled={actionLoading === `del-${refUser._id}`}
+                                                                            >
+                                                                                {actionLoading === `del-${refUser._id}` ? '...' : <Trash2 className="w-4 h-4" />}
+                                                                            </Button>
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     ) : (
                                         <div className="p-8 text-center bg-[#0a1b12] flex flex-col items-center justify-center">
