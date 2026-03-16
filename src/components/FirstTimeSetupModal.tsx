@@ -125,7 +125,7 @@ export const FirstTimeSetupModal = ({ isOpen, onClose }: FirstTimeSetupModalProp
                   Enter with country code (+1234567890) or local format
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="firstName">First Name *</Label>
                   <Input
@@ -195,7 +195,7 @@ export const FirstTimeSetupModal = ({ isOpen, onClose }: FirstTimeSetupModalProp
                   rows={2}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="city">City</Label>
                   <Input
