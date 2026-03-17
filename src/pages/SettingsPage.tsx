@@ -21,7 +21,6 @@ export const SettingsPage = () => {
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const [changePassword, { isLoading: changePasswordLoading }] = useChangePasswordMutation();
   const { data: userData, refetch } = useGetMeQuery();
-  const [showSetupModal, setShowSetupModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [profileData, setProfileData] = useState({
     firstName: '',
@@ -74,13 +73,6 @@ export const SettingsPage = () => {
     }
   }, [userData]);
 
-  useEffect(() => {
-    // Show setup modal for first-time users
-    if (user && !user.hasCompletedSetup) {
-      setShowSetupModal(true);
-    }
-  }, [user]);
-
   const handleSaveProfile = async () => {
     try {
       const result = await updateProfile({
@@ -107,58 +99,6 @@ export const SettingsPage = () => {
       toast({
         title: "Update Failed",
         description: error.data?.message || "Failed to update profile",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleCompleteSetup = async () => {
-    if (!profileData.phone || !profileData.country || !profileData.gender) {
-      toast({
-        title: "Incomplete Information",
-        description: "Please fill in all required fields to complete setup.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Check if at least one withdrawal address is provided
-    const hasWithdrawalAddress = Object.values(profileData.withdrawalAddresses).some(addr => addr.trim() !== '');
-    if (!hasWithdrawalAddress) {
-      toast({
-        title: "Withdrawal Address Required",
-        description: "Please provide at least one withdrawal address.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      const result = await updateProfile({
-        firstName: profileData.firstName,
-        lastName: profileData.lastName,
-        phone: profileData.phone,
-        country: profileData.country,
-        gender: profileData.gender,
-        withdrawalAddresses: profileData.withdrawalAddresses,
-        hasCompletedSetup: true
-      }).unwrap();
-
-      // Update local user state and localStorage immediately
-      updateUser(result.user);
-      
-      // Refetch user data to ensure sync
-      refetch();
-      setShowSetupModal(false);
-      
-      toast({
-        title: "Setup Complete!",
-        description: "Your account setup has been completed successfully.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Setup Failed",
-        description: error.data?.message || "Failed to complete setup",
         variant: "destructive",
       });
     }
@@ -412,108 +352,6 @@ export const SettingsPage = () => {
           </div>
         </CardContent>
       </Card>
-
-      {/* Setup Modal */}
-      <Dialog open={showSetupModal} onOpenChange={setShowSetupModal}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Complete Your Account Setup</DialogTitle>
-            <DialogDescription>
-              To ensure secure transactions, please complete your profile setup
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="setupPhone">Phone Number *</Label>
-              <Input
-                id="setupPhone"
-                type="tel"
-                placeholder="+1 (555) 123-4567"
-                value={profileData.phone}
-                onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="setupCountry">Country *</Label>
-              <Select value={profileData.country} onValueChange={(value) => setProfileData({ ...profileData, country: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your country" />
-                </SelectTrigger>
-                <SelectContent className="max-h-60">
-                  {COUNTRIES.map((country) => (
-                    <SelectItem key={country.code} value={country.code}>
-                      {country.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label htmlFor="setupGender">Gender *</Label>
-              <Select value={profileData.gender} onValueChange={(value) => setProfileData({ ...profileData, gender: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select your gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="female">Female</SelectItem>
-                  
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label>Withdrawal Address (At least one required) *</Label>
-              <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                {WITHDRAWAL_CURRENCIES.map((currency) => {
-                  const currencyKey = currency.id;
-                  return (
-                    <div key={currency.id}>
-                      <Label htmlFor={`setup-${currencyKey}`} className="text-xs mb-1 block">
-                        {currency.name} ({currency.network})
-                      </Label>
-                      <Input
-                        id={`setup-${currencyKey}`}
-                        placeholder={`${currency.symbol} address`}
-                        value={profileData.withdrawalAddresses[currencyKey as keyof typeof profileData.withdrawalAddresses] || ''}
-                        onChange={(e) => setProfileData({
-                          ...profileData,
-                          withdrawalAddresses: {
-                            ...profileData.withdrawalAddresses,
-                            [currencyKey]: e.target.value
-                          }
-                        })}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <p className="text-sm font-medium mb-1">Why do we need this information?</p>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• To verify your identity and prevent fraud</li>
-                <li>• To process withdrawals securely</li>
-                <li>• To comply with financial regulations</li>
-                <li>• To provide better customer support</li>
-              </ul>
-            </div>
-
-            <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setShowSetupModal(false)} className="flex-1">
-                Skip for Now
-              </Button>
-              <Button onClick={handleCompleteSetup} className="flex-1">
-                Complete Setup
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
       
       <ChangePasswordModal
         isOpen={showPasswordModal}

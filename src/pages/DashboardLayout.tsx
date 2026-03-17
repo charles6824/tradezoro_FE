@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
-  SidebarProvider, 
-  Sidebar, 
-  SidebarContent, 
-  SidebarGroup, 
-  SidebarGroupContent, 
-  SidebarGroupLabel, 
-  SidebarMenu, 
-  SidebarMenuButton, 
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-  useSidebar 
+  useSidebar
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -22,13 +22,13 @@ import { ReliableLanguageSelector } from '@/components/ReliableLanguageSelector'
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { useGetUserProfileQuery } from '@/store/userApi';
-import { 
-  LayoutDashboard, 
-  Wallet, 
-  CreditCard, 
-  Package, 
-  TrendingUp, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Wallet,
+  CreditCard,
+  Package,
+  TrendingUp,
+  Settings,
   LogOut,
   ChevronRight,
   ArrowLeftRight,
@@ -43,7 +43,7 @@ const userNavItems = [
   { title: 'transfer', url: '/dashboard/transfer', icon: ArrowLeftRight },
   { title: 'packages', url: '/dashboard/packages', icon: Package },
   { title: 'investments', url: '/dashboard/investments', icon: TrendingUp },
-  { title: 'chatTitle', url: 'https://t.me/tradezero_community', icon: MessageCircle },
+  { title: 'chatTitle', url: 'https://t.me/tradezero_group', icon: MessageCircle },
   { title: 'Referrals', url: '/dashboard/referrals', icon: Users },
   { title: 'settings', url: '/dashboard/settings', icon: Settings },
 ];
@@ -52,7 +52,7 @@ export const DashboardSidebar = () => {
   const { user, logout } = useAuth();
   const { data: userProfileData } = useGetUserProfileQuery(undefined, { skip: !user });
   const currentUser = userProfileData?.data || user;
-  
+
   const { state, isMobile, setOpenMobile } = useSidebar();
   const location = useLocation();
   const [showSetupModal, setShowSetupModal] = useState(false);
@@ -87,7 +87,7 @@ export const DashboardSidebar = () => {
   return (
     <Sidebar className={isCollapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarTrigger className="m-2 self-end" />
-      
+
       <SidebarContent>
         {/* User Profile */}
         {!isCollapsed && (
@@ -124,14 +124,13 @@ export const DashboardSidebar = () => {
               {userNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link 
+                    <Link
                       to={item.url}
                       onClick={handleNavClick}
-                      className={`flex items-center space-x-2 ${
-                        isActive(item.url) 
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                      className={`flex items-center space-x-2 ${isActive(item.url)
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
                           : 'hover:bg-sidebar-accent/50'
-                      }`}
+                        }`}
                     >
                       <item.icon className="w-4 h-4" />
                       {!isCollapsed && <span>{t(item.title)}</span>}
@@ -142,9 +141,9 @@ export const DashboardSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              
+
               <SidebarMenuItem>
-                <SidebarMenuButton 
+                <SidebarMenuButton
                   onClick={() => {
                     setShowLogoutDialog(true);
                     // Don't close sidebar immediately, let the modal show first
@@ -159,8 +158,8 @@ export const DashboardSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      
-      <LogoutConfirmDialog 
+
+      <LogoutConfirmDialog
         open={showLogoutDialog}
         onOpenChange={setShowLogoutDialog}
         onConfirm={handleLogout}
@@ -182,7 +181,7 @@ export const DashboardLayout = () => {
                   <SidebarTrigger />
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300 pr-2">Menu</span>
                 </div>
-                
+
                 {/* Logo injected for all screen sizes connecting back to landing page */}
                 <Link to="/" className="flex items-center space-x-2">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-indigo-600">

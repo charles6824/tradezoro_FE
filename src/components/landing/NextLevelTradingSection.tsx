@@ -19,7 +19,7 @@ export const NextLevelTradingSection = () => {
             <Link to="/login" className="px-8 py-4 bg-primary text-background-dark rounded-xl font-bold text-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
               Start Trading <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
-            <button onClick={() => window.open('https://t.me/tradezero_community', '_blank')} className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+            <button onClick={() => window.open('https://t.me/tradezero_group', '_blank')} className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
               Join Live Chat <span className="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>

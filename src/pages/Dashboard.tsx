@@ -9,7 +9,6 @@ import { useGetUserBalanceQuery, useGetUserProfileQuery } from '@/store/userApi'
 import { useGetInvestmentsQuery, useGetInvestmentStatsQuery } from '@/store/investmentsApi';
 import { useGetTransactionsQuery, useCancelTransactionMutation } from '@/store/transactionsApi';
 import { mockCryptoPrices } from '@/utils/mockData';
-import ProfileSetupModal from '@/components/ProfileSetupModal';
 import { useTranslation } from 'react-i18next';
 import { 
   TrendingUp, 
@@ -38,7 +37,7 @@ export const Dashboard = () => {
   const { data: investmentStats } = useGetInvestmentStatsQuery();
   const { data: transactionsData, refetch: refetchTransactions } = useGetTransactionsQuery({ limit: 5 });
   const [showBalance, setShowBalance] = useState(true);
-  const [showSetupModal, setShowSetupModal] = useState(false);
+  const [showSetupBanner, setShowSetupBanner] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [cancelTransaction, { isLoading: isCanceling }] = useCancelTransactionMutation();
@@ -80,7 +79,7 @@ export const Dashboard = () => {
   // Check profile setup on mount
   useEffect(() => {
     if (user && !user.hasCompletedSetup) {
-      setShowSetupModal(true);
+      setShowSetupBanner(true);
     }
   }, [user]);
 
@@ -465,10 +464,15 @@ export const Dashboard = () => {
         </CardContent>
       </Card>
       
-      <ProfileSetupModal 
-        isOpen={showSetupModal} 
-        onClose={() => setShowSetupModal(false)} 
-      />
+      {showSetupBanner && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-center justify-between gap-4 shadow-lg">
+          <p className="text-sm text-yellow-200">Complete your profile to unlock all features.</p>
+          <div className="flex gap-2 shrink-0">
+            <Button size="sm" variant="ghost" className="text-yellow-400 hover:text-yellow-300" onClick={() => setShowSetupBanner(false)}>Later</Button>
+            <Button size="sm" className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold" onClick={() => navigate('/dashboard/setup')}>Complete Setup</Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
