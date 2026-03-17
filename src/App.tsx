@@ -24,6 +24,7 @@ import { WithdrawalPage } from "./pages/WithdrawalPage";
 import { PackagesPage } from "./pages/PackagesPage";
 import { InvestmentsPage } from "./pages/InvestmentsPage";
 import { SettingsPage } from "./pages/SettingsPage";
+import { FirstTimeSetupPage } from "./pages/FirstTimeSetupPage";
 import { ReferralsPage } from "./pages/ReferralsPage";
 import NotFound from "./pages/NotFound";
 import { AdminUsersPage } from "./pages/AdminUsersPage";
@@ -152,6 +153,14 @@ const App = () => (
 					<Route path="/public-referrals" element={<PublicReferralsPage />} />
 
 					{/* Dashboard routes with sidebar - Protected */}
+					<Route
+						path="/dashboard/setup"
+						element={
+							<ProtectedRoute>
+								<FirstTimeSetupPage />
+							</ProtectedRoute>
+						}
+					/>
 					<Route
 						path="/dashboard"
 						element={

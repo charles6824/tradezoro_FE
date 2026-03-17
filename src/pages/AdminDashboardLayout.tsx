@@ -1,27 +1,27 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
-  SidebarProvider, 
-  Sidebar, 
-  SidebarContent, 
-  SidebarGroup, 
-  SidebarGroupContent, 
-  SidebarGroupLabel, 
-  SidebarMenu, 
-  SidebarMenuButton, 
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-  useSidebar 
+  useSidebar
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
-import { 
-  LayoutDashboard, 
-  Users, 
-  CreditCard, 
-  Package, 
-  TrendingUp, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Users,
+  CreditCard,
+  Package,
+  TrendingUp,
+  Settings,
   LogOut,
   ChevronRight,
   DollarSign,
@@ -40,7 +40,7 @@ const adminNavItems = [
   { title: 'Payment Config', url: '/admin/payment-config', icon: Wallet },
   { title: 'Messages', url: '/admin/messages', icon: MessageCircle },
   { title: 'Referrals', url: '/admin/referrals', icon: Users },
-  { title: 'Chat', url: 'https://t.me/tradezero_community', icon: MessageCircle },
+  { title: 'Chat', url: 'https://t.me/tradezero_group', icon: MessageCircle },
   { title: 'Reports', url: '/admin/reports', icon: FileText },
   { title: 'Settings', url: '/admin/settings', icon: Settings },
 ];
@@ -62,7 +62,7 @@ export const AdminDashboardSidebar = () => {
   return (
     <Sidebar className={isCollapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarTrigger className="m-2 self-end" />
-      
+
       <SidebarContent>
         {/* Admin Profile */}
         {!isCollapsed && (
@@ -92,14 +92,13 @@ export const AdminDashboardSidebar = () => {
               {adminNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link 
+                    <Link
                       to={item.url}
                       onClick={handleNavClick}
-                      className={`flex items-center space-x-2 ${
-                        isActive(item.url) 
-                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                      className={`flex items-center space-x-2 ${isActive(item.url)
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
                           : 'hover:bg-sidebar-accent/50'
-                      }`}
+                        }`}
                     >
                       <item.icon className="w-4 h-4" />
                       {!isCollapsed && <span>{item.title}</span>}
@@ -110,9 +109,9 @@ export const AdminDashboardSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              
+
               <SidebarMenuItem>
-                <SidebarMenuButton 
+                <SidebarMenuButton
                   onClick={() => {
                     logout();
                     handleNavClick();

@@ -15,7 +15,7 @@ const ProfileSetupModal: React.FC<ProfileSetupModalProps> = ({ isOpen, onClose }
   if (!isOpen) return null;
 
   const handleCompleteSetup = () => {
-    navigate('/dashboard/settings');
+    navigate('/dashboard/setup');
     onClose();
   };
 
