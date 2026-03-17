@@ -61,6 +61,16 @@ export const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    resendOTP: builder.mutation<
+      { success: boolean; message: string; tempToken: string },
+      { tempToken: string }
+    >({
+      query: (data) => ({
+        url: '/auth/resend-otp',
+        method: 'POST',
+        body: data,
+      }),
+    }),
     forgotPassword: builder.mutation<
       { success: boolean; message: string },
       { email: string }
@@ -91,6 +101,7 @@ export const {
   useUpdateProfileMutation,
   useChangePasswordMutation,
   useVerifyOTPMutation,
+  useResendOTPMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
 } = authApi;

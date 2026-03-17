@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import { useVerifyOTPMutation } from "@/store/authApi";
+import { useVerifyOTPMutation, useResendOTPMutation } from "@/store/authApi";
 import { Loader2, Mail } from "lucide-react";
 
 export const OTPVerificationPage = () => {
@@ -22,6 +22,7 @@ export const OTPVerificationPage = () => {
 	const { toast } = useToast();
 	const { login } = useAuth();
 	const [verifyOTP, { isLoading }] = useVerifyOTPMutation();
+	const [resendOTP, { isLoading: isResending }] = useResendOTPMutation();
 
 	const tempToken = location.state?.tempToken;
 	const email = location.state?.email;
@@ -57,6 +58,22 @@ export const OTPVerificationPage = () => {
 			toast({
 				title: "Verification Failed",
 				description: error?.data?.message || "Invalid OTP",
+				variant: "destructive",
+			});
+		}
+	};
+
+	const handleResendOTP = async () => {
+		try {
+			await resendOTP({ tempToken }).unwrap();
+			toast({
+				title: "OTP Resent",
+				description: "A new verification code has been sent to your email.",
+			});
+		} catch (error: any) {
+			toast({
+				title: "Failed to Resend",
+				description: error?.data?.message || "Could not resend OTP. Please try again.",
 				variant: "destructive",
 			});
 		}
@@ -106,9 +123,24 @@ export const OTPVerificationPage = () => {
 						</Button>
 					</form>
 
-					<div className="mt-4 text-center text-sm text-muted-foreground">
-						Didn't receive the code? Check your spam folder or try registering
-						again.
+					<div className="mt-6 text-center text-sm text-muted-foreground">
+						<p className="mb-2">Didn't receive the code?</p>
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={handleResendOTP}
+							disabled={isResending}
+							className="mt-2"
+						>
+							{isResending ? (
+								<>
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									Resending...
+								</>
+							) : (
+								"Resend Code"
+							)}
+						</Button>
 					</div>
 				</CardContent>
 			</Card>
