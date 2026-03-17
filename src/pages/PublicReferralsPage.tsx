@@ -18,12 +18,6 @@ export const PublicReferralsPage = () => {
     const { toast } = useToast();
     const [users, setUsers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [actionLoading, setActionLoading] = useState<string | null>(null);
-
-    // Edit Modal State
-    const [editModalOpen, setEditModalOpen] = useState(false);
-    const [editingUser, setEditingUser] = useState<any>(null);
-    const [newReferralCode, setNewReferralCode] = useState('');
 
     // Toggle logic for referring users list
     const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -58,57 +52,6 @@ export const PublicReferralsPage = () => {
     useEffect(() => {
         fetchUsers();
     }, []);
-
-    const handleAddReferral = async (userId: string) => {
-        try {
-            setActionLoading(`add-${userId}`);
-            const res = await fetch(`${API_URL}/api/public-referrals/${userId}/add`, { method: 'POST' });
-            if (!res.ok) throw new Error('Failed to add referral');
-            toast({ title: 'Success', description: 'Referral added successfully. Rewards updated if threshold met.' });
-            fetchUsers();
-        } catch (error: any) {
-            toast({ title: 'Error', description: error.message, variant: 'destructive' });
-        } finally {
-            setActionLoading(null);
-        }
-    };
-
-    const handleDeleteReferral = async (referralId: string) => {
-        if (!confirm('Are you sure you want to delete this specific referral user?')) return;
-        try {
-            setActionLoading(`del-${referralId}`);
-            const res = await fetch(`${API_URL}/api/public-referrals/delete/${referralId}`, { method: 'DELETE' });
-            if (!res.ok) throw new Error('Failed to delete referral');
-            toast({ title: 'Success', description: 'Referral user removed.' });
-            fetchUsers();
-        } catch (error: any) {
-            toast({ title: 'Error', description: error.message, variant: 'destructive' });
-        } finally {
-            setActionLoading(null);
-        }
-    };
-
-    const handleUpdateReferralCode = async () => {
-        if (!editingUser) return;
-        try {
-            setActionLoading(`edit-${editingUser._id}`);
-            const res = await fetch(`${API_URL}/api/public-referrals/${editingUser._id}/code`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ referralCode: newReferralCode.trim() })
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || 'Failed to update referral code');
-            
-            toast({ title: 'Success', description: 'Referral code updated successfully.' });
-            setEditModalOpen(false);
-            fetchUsers();
-        } catch (error: any) {
-            toast({ title: 'Error', description: error.message, variant: 'destructive' });
-        } finally {
-            setActionLoading(null);
-        }
-    };
 
     // Filter Logic
     const filteredUsers = useMemo(() => {
@@ -253,18 +196,6 @@ export const PublicReferralsPage = () => {
                                                 <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30 shrink-0">
                                                     {user.referralCode || 'No Code Found'}
                                                 </Badge>
-                                                <Button 
-                                                    variant="ghost" 
-                                                    size="icon" 
-                                                    className="w-6 h-6 hover:bg-primary/20 text-primary border border-primary/20"
-                                                    onClick={() => {
-                                                        setEditingUser(user);
-                                                        setNewReferralCode(user.referralCode || '');
-                                                        setEditModalOpen(true);
-                                                    }}
-                                                >
-                                                    <Pencil className="w-3 h-3" />
-                                                </Button>
                                             </div>
                                             <CardDescription className="flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-400">
                                                 <span className="truncate w-full sm:w-auto block">{user.email}</span>
@@ -276,16 +207,6 @@ export const PublicReferralsPage = () => {
                                                     Rewarded: {user.rewardedReferrals || 0} / {user.referredUsers?.length || 0}
                                                 </span>
                                             </CardDescription>
-                                        </div>
-                                        <div className="w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
-                                            <Button 
-                                                onClick={() => handleAddReferral(user._id)}
-                                                disabled={actionLoading === `add-${user._id}`}
-                                                className="bg-primary text-background-dark hover:brightness-110 shadow-sm font-bold w-full sm:w-auto"
-                                            >
-                                                <Plus className="w-4 h-4 mr-2" />
-                                                {actionLoading === `add-${user._id}` ? 'Adding...' : 'Add Referral'}
-                                            </Button>
                                         </div>
                                     </div>
                                 </CardHeader>
@@ -317,7 +238,6 @@ export const PublicReferralsPage = () => {
                                                                     <th className="px-6 py-3">Referred User Name</th>
                                                                     <th className="px-6 py-3">Email</th>
                                                                     <th className="px-6 py-3">Join Date</th>
-                                                                    <th className="px-6 py-3 text-right">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody className="divide-y divide-primary/10 bg-[#0a1b12]">
@@ -329,17 +249,6 @@ export const PublicReferralsPage = () => {
                                                                         <td className="px-6 py-3 max-w-[200px] truncate">{refUser.email}</td>
                                                                         <td className="px-6 py-3 whitespace-nowrap">
                                                                             {new Date(refUser.createdAt).toLocaleDateString()}
-                                                                        </td>
-                                                                        <td className="px-6 py-3 text-right whitespace-nowrap">
-                                                                            <Button
-                                                                                variant="ghost"
-                                                                                size="sm"
-                                                                                className="h-8 text-red-400 hover:text-red-300 hover:bg-red-400/10"
-                                                                                onClick={() => handleDeleteReferral(refUser._id)}
-                                                                                disabled={actionLoading === `del-${refUser._id}`}
-                                                                            >
-                                                                                {actionLoading === `del-${refUser._id}` ? '...' : <Trash2 className="w-4 h-4" />}
-                                                                            </Button>
                                                                         </td>
                                                                     </tr>
                                                                 ))}
@@ -391,43 +300,6 @@ export const PublicReferralsPage = () => {
                 )}
 
             </div>
-            {/* Edit Referral Code Modal */}
-            <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
-                <DialogContent className="bg-background-dark border-primary/20 text-slate-100">
-                    <DialogHeader>
-                        <DialogTitle>Update Referral Code</DialogTitle>
-                        <DialogDescription className="text-slate-400">
-                            Change the referral code for {editingUser?.firstName} {editingUser?.lastName}.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="py-4">
-                        <Label htmlFor="refCode" className="text-slate-300">New Referral Code</Label>
-                        <Input
-                            id="refCode"
-                            value={newReferralCode}
-                            onChange={(e) => setNewReferralCode(e.target.value)}
-                            className="bg-[#08150d] border-primary/20 text-slate-100 focus-visible:ring-primary mt-2"
-                            placeholder="Enter new code"
-                        />
-                    </div>
-                    <DialogFooter>
-                        <Button 
-                            variant="outline" 
-                            onClick={() => setEditModalOpen(false)}
-                            className="border-primary/20 text-slate-300 hover:text-white bg-transparent"
-                        >
-                            Cancel
-                        </Button>
-                        <Button 
-                            onClick={handleUpdateReferralCode}
-                            disabled={!newReferralCode.trim() || actionLoading === `edit-${editingUser?._id}`}
-                            className="bg-primary text-background-dark hover:brightness-110 font-bold"
-                        >
-                            {actionLoading === `edit-${editingUser?._id}` ? 'Saving...' : 'Save Changes'}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
         </div>
     );
 };
