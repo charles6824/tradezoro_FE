@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Database } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://tradezero-be.onrender.com';
 
@@ -45,7 +46,16 @@ export const PublicReferralsPage = () => {
 
     return (
         <div className="min-h-screen bg-background-dark py-8 px-4 text-slate-100 dark">
-            <div className="max-w-2xl mx-auto space-y-2">
+            <div className="max-w-2xl mx-auto space-y-4">
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                        <Database className="w-8 h-8 text-primary" />
+                        <h1 className="text-3xl font-bold tracking-tight text-slate-100">Referral Network Accelerator</h1>
+                    </div>
+                    <p className="text-slate-400">
+                        Marketer dashboard to visualize the referral network and manually boost user referral counts.
+                    </p>
+                </div>
                 {users.length === 0 ? (
                     <p className="text-center text-slate-400 py-12">No referrals found.</p>
                 ) : (
