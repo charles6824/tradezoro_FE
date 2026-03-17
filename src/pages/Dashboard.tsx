@@ -465,11 +465,11 @@ export const Dashboard = () => {
       </Card>
       
       {showSetupBanner && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md bg-yellow-500 border border-yellow-500/30 rounded-lg p-4 flex items-center justify-between gap-4 shadow-lg">
-          <p className="text-sm text-yellow-200">Complete your profile to unlock all features.</p>
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md bg-yellow-400 border border-yellow-300 rounded-lg p-4 flex items-center justify-between gap-4 shadow-xl">
+          <p className="text-sm font-semibold text-yellow-900">Complete your profile to unlock all features.</p>
           <div className="flex gap-2 shrink-0">
-            <Button size="sm" variant="ghost" className="text-yellow-400 hover:text-yellow-300" onClick={() => setShowSetupBanner(false)}>Later</Button>
-            <Button size="sm" className="bg-yellow-500/60 hover:bg-yellow-400 text-black font-semibold" onClick={() => navigate('/dashboard/setup')}>Complete Setup</Button>
+            <Button size="sm" variant="ghost" className="text-yellow-800 hover:text-yellow-900 hover:bg-yellow-300 font-medium" onClick={() => setShowSetupBanner(false)}>Later</Button>
+            <Button size="sm" className="bg-yellow-900 hover:bg-yellow-800 text-yellow-100 font-semibold" onClick={() => navigate('/dashboard/setup')}>Complete Setup</Button>
           </div>
         </div>
       )}
