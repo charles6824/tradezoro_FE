@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { LogOut, Settings, LayoutDashboard } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const navLinks = [
 	{ label: 'Trade', href: '/login' },
@@ -25,6 +26,7 @@ export const LandingHeader = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
 		<nav className="sticky top-0 z-50 border-b border-primary/10 bg-background-dark/80 backdrop-blur-md">
@@ -47,7 +49,7 @@ export const LandingHeader = () => {
 									className="text-sm font-medium hover:text-primary transition-colors"
 									to={link.href}
 								>
-									{link.label}
+									{t(link.label)}
 								</Link>
 							))}
 						</div>
@@ -62,10 +64,10 @@ export const LandingHeader = () => {
 									className="px-5 py-2.5 rounded-full text-sm font-bold border border-primary/20 hover:bg-primary/10 transition-all text-slate-100"
 									onClick={() => navigate("/login")}
 								>
-									Login
+									{t("Login")}
 								</button>
 								<button className="hidden md:block px-5 py-2.5 rounded-full text-sm font-bold bg-primary text-background-dark hover:brightness-110 transition-all" onClick={() => navigate("/register")}>
-									Sign Up
+									{t("Sign Up")}
 								</button>
 							</>
 						) : (
@@ -93,7 +95,7 @@ export const LandingHeader = () => {
 											className="flex items-center space-x-2 cursor-pointer"
 										>
 											<LayoutDashboard className="w-4 h-4" />
-											<span>Dashboard</span>
+											<span>{t("Dashboard")}</span>
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem asChild>
@@ -102,7 +104,7 @@ export const LandingHeader = () => {
 											className="flex items-center space-x-2 cursor-pointer"
 										>
 											<Settings className="w-4 h-4" />
-											<span>Settings</span>
+											<span>{t("Settings")}</span>
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem
@@ -110,7 +112,7 @@ export const LandingHeader = () => {
 										className="flex items-center space-x-2 text-destructive focus:text-destructive cursor-pointer"
 									>
 										<LogOut className="w-4 h-4" />
-										<span>Logout</span>
+										<span>{t("Logout")}</span>
 									</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
@@ -165,10 +167,10 @@ export const LandingHeader = () => {
 									className="px-5 py-2.5 rounded-full text-sm font-bold border border-primary/20 hover:bg-primary/10 transition-all text-slate-100"
 									onClick={() => navigate("/login")}
 								>
-									Login
+									{t("Login")}
 								</button>
 								<button className="hidden md:block px-5 py-2.5 rounded-full text-sm font-bold bg-primary text-background-dark hover:brightness-110 transition-all" onClick={() => navigate("/register")}>
-									Sign Up
+									{t("Sign Up")}
 								</button>
 							</>
 						) : (
@@ -196,7 +198,7 @@ export const LandingHeader = () => {
 											className="flex items-center space-x-2 cursor-pointer"
 										>
 											<LayoutDashboard className="w-4 h-4" />
-											<span>Dashboard</span>
+											<span>{t("Dashboard")}</span>
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem asChild>
@@ -205,7 +207,7 @@ export const LandingHeader = () => {
 											className="flex items-center space-x-2 cursor-pointer"
 										>
 											<Settings className="w-4 h-4" />
-											<span>Settings</span>
+											<span>{t("Settings")}</span>
 										</Link>
 									</DropdownMenuItem>
 									<DropdownMenuItem
@@ -213,7 +215,7 @@ export const LandingHeader = () => {
 										className="flex items-center space-x-2 text-destructive focus:text-destructive cursor-pointer"
 									>
 										<LogOut className="w-4 h-4" />
-										<span>Logout</span>
+										<span>{t("Logout")}</span>
 									</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>

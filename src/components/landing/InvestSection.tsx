@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 export const InvestSection = () => {
+  const { t } = useTranslation();
   return (
     <section className="relative py-32 overflow-hidden">
       {/* Dynamic Trading Background */}
@@ -13,13 +16,13 @@ export const InvestSection = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 space-y-4">
           <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-4">
-            Global Market Access
+            {t("Global Market Access")}
           </div>
           <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white">
-            INVEST ON OVER <span className="text-primary">500+ STOCKS</span> WORLDWIDE
+            {t("INVEST ON OVER")} <span className="text-primary">{t("500+ STOCKS")}</span> {t("WORLDWIDE")}
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Access institutional-grade liquidity and real-time execution across global exchanges.
+            {t("Access institutional-grade liquidity and real-time execution across global exchanges.")}
           </p>
         </div>
         {/* <div className="grid md:grid-cols-2 gap-8 lg:gap-12">

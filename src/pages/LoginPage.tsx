@@ -77,13 +77,13 @@ const LoginPage = () => {
 								className="hidden sm:inline text-sm text-slate-500 dark:text-primary/60"
 								onClick={() => navigate("/")}
 							>
-								New to TradeZero?
+								{t("New to TradeZero?")}
 							</span>
 							<Link
 								to="/register"
 								className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-full h-10 px-5 bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-bold"
 							>
-								<span>Register</span>
+								<span>{t("Register")}</span>
 							</Link>
 						</div>
 					</header>
@@ -101,16 +101,16 @@ const LoginPage = () => {
 							</div>
 							<div className="space-y-2">
 								<h1 className="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">
-									Sign in
+									{t("Sign in")}
 								</h1>
 								<p className="text-slate-500 dark:text-primary/60 text-lg">
-									Access your secure trading terminal
+									{t("Access your secure trading terminal")}
 								</p>
 							</div>
 							<form className="space-y-6" onSubmit={handleSubmit}>
 								<div className="space-y-2">
 									<label className="block text-slate-700 dark:text-slate-200 text-sm font-semibold ml-1">
-										Email Address
+										{t("Email Address")}
 									</label>
 									<div className="relative group">
 										<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -132,13 +132,13 @@ const LoginPage = () => {
 								<div className="space-y-2">
 									<div className="flex justify-between items-center ml-1">
 										<label className="block text-slate-700 dark:text-slate-200 text-sm font-semibold">
-											Password
+											{t("Password")}
 										</label>
 										<Link
 											className="text-sm font-bold text-primary hover:underline"
 											to="/forgot-password"
 										>
-											Forgot password?
+											{t("Forgot password?")}
 										</Link>
 									</div>
 									<div className="relative group">
@@ -178,14 +178,14 @@ const LoginPage = () => {
 											className="text-sm text-slate-600 dark:text-slate-400"
 											htmlFor="remember"
 										>
-											Keep me logged in
+											{t("Keep me logged in")}
 										</label>
 									</div>
 									<Link
 										className="text-sm font-bold text-primary hover:underline"
 										to="/register"
 									>
-										Create an account
+										{t("Create an account")}
 									</Link>
 								</div>
 								<button
@@ -193,7 +193,7 @@ const LoginPage = () => {
 									type="submit"
 									disabled={isLoading}
 								>
-									<span>{isLoading ? "Signing in..." : t("Sign In")}</span>
+									<span>{isLoading ? t("Signing in...") : t("Sign In")}</span>
 									<span className="material-symbols-outlined">
 										arrow_forward
 									</span>
@@ -201,14 +201,14 @@ const LoginPage = () => {
 							</form>
 							<div className="pt-6 border-t border-slate-200 dark:border-primary/10 text-center">
 								<p className="text-slate-500 dark:text-primary/40 text-sm">
-									Protected by industry-leading 256-bit encryption. <br />
-									TradeZero is a registered broker-dealer.
+									{t("Protected by industry-leading 256-bit encryption.")} <br />
+									{t("TradeZero is a registered broker-dealer.")}
 								</p>
 							</div>
 						</div>
 					</main>
 					<footer className="p-6 text-center text-slate-400 dark:text-primary/30 text-xs">
-						© 2024 TradeZero Inc. All rights reserved. Member FINRA/SIPC.
+						{t("© 2024 TradeZero Inc. All rights reserved. Member FINRA/SIPC.")}
 					</footer>
 				</div>
 			</div>

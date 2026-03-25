@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const NextLevelTradingSection = () => {
+  const { t } = useTranslation();
   return (
     <section className="relative py-24 bg-background-dark overflow-hidden min-h-[600px] flex items-center">
       <div className="absolute inset-0 z-0">
@@ -10,17 +12,17 @@ export const NextLevelTradingSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="max-w-2xl">
           <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-white">
-            Take Your Trading <br />to the Next Level
+            {t("Take Your Trading")} <br />{t("to the Next Level")}
           </h2>
           <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-            Trusted by Over 100,000 Clients: Lightning-Fast Trades, Low Fees and an Exceptional Trading Experience.
+            {t("Trusted by Over 100,000 Clients: Lightning-Fast Trades, Low Fees and an Exceptional Trading Experience.")}
           </p>
           <div className="flex flex-col sm:flex-row gap-5">
             <Link to="/login" className="px-8 py-4 bg-primary text-background-dark rounded-xl font-bold text-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
-              Start Trading <span className="material-symbols-outlined">arrow_forward</span>
+              {t("Start Trading")} <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
             <button onClick={() => window.open('https://t.me/tradezero_group', '_blank')} className="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-              Join Live Chat <span className="material-symbols-outlined">arrow_forward</span>
+              {t("Join Live Chat")} <span className="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>
         </div>

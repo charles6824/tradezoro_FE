@@ -107,13 +107,13 @@ export const RegisterPage = () => {
 					</div>
 					<div className="flex items-center gap-4">
 						<span className="hidden md:inline text-sm text-slate-500 dark:text-slate-400">
-							Already have an account?
+							{t("Already have an account?")}
 						</span>
 						<Link
 							to="/login"
 							className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-full h-10 px-6 bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-bold"
 						>
-							<span>Log In</span>
+							<span>{t("Log In")}</span>
 						</Link>
 					</div>
 				</header>
@@ -123,10 +123,10 @@ export const RegisterPage = () => {
 						{/* Title Section */}
 						<div className="text-center space-y-2">
 							<h1 className="text-slate-900 dark:text-white text-4xl font-black tracking-tight lg:text-5xl">
-								Start Trading Now
+								{t("Start Trading Now")}
 							</h1>
 							<p className="text-slate-500 dark:text-slate-400 text-lg">
-								Join the world's most trusted trading platform.
+								{t("Join the world's most trusted trading platform.")}
 							</p>
 						</div>
 						{/* Form Container */}
@@ -135,7 +135,7 @@ export const RegisterPage = () => {
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 									<label className="flex flex-col gap-2">
 										<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-											First Name
+											{t("First Name")}
 										</span>
 										<input
 											className="w-full rounded-xl border-slate-200 dark:border-primary/20 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-primary focus:border-primary h-14 px-4 transition-all"
@@ -150,7 +150,7 @@ export const RegisterPage = () => {
 									</label>
 									<label className="flex flex-col gap-2">
 										<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-											Last Name
+											{t("Last Name")}
 										</span>
 										<input
 											className="w-full rounded-xl border-slate-200 dark:border-primary/20 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-primary focus:border-primary h-14 px-4 transition-all"
@@ -166,7 +166,7 @@ export const RegisterPage = () => {
 								</div>
 								<label className="flex flex-col gap-2">
 									<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-										Email Address
+										{t("Email Address")}
 									</span>
 									<input
 										className="w-full rounded-xl border-slate-200 dark:border-primary/20 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-primary focus:border-primary h-14 px-4 transition-all"
@@ -181,7 +181,7 @@ export const RegisterPage = () => {
 								</label>
 								<label className="flex flex-col gap-2">
 									<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-										Password
+										{t("Password")}
 									</span>
 									<div className="relative">
 										<input
@@ -207,7 +207,7 @@ export const RegisterPage = () => {
 								</label>
 								<label className="flex flex-col gap-2">
 									<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-										Confirm Password
+										{t("Confirm Password")}
 									</span>
 									<div className="relative">
 										<input
@@ -224,7 +224,7 @@ export const RegisterPage = () => {
 								</label>
 								<label className="flex flex-col gap-2">
 									<span className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-										Referral Code (Optional)
+										{t("Referral Code (Optional)")}
 									</span>
 									<input
 										className="w-full rounded-xl border-slate-200 dark:border-primary/20 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:ring-primary focus:border-primary h-14 px-4 transition-all"
@@ -253,13 +253,13 @@ export const RegisterPage = () => {
 										className="text-xs text-slate-500 dark:text-slate-400 leading-snug"
 										htmlFor="agreeToTerms"
 									>
-										By creating an account, I agree to TradeZero's{" "}
+										{t("By creating an account, I agree to TradeZero's")}{" "}
 										<a className="text-primary hover:underline" href="#">
-											Terms of Service
+											{t("Terms of Service")}
 										</a>{" "}
-										and{" "}
+										{t("and")}{" "}
 										<a className="text-primary hover:underline" href="#">
-											Privacy Policy
+											{t("Privacy Policy")}
 										</a>
 										.
 									</label>
@@ -269,7 +269,7 @@ export const RegisterPage = () => {
                   type="submit"
                   disabled={isLoading}
 								>
-									{isLoading ? "Creating Account..." : "Create Account"}
+									{isLoading ? t("Creating Account...") : t("Create Account")}
 								</button>
 							</form>
 						</div>
@@ -277,19 +277,17 @@ export const RegisterPage = () => {
 						<div className="flex flex-col items-center gap-6 pt-4">
 							<div className="flex items-center gap-8 opacity-50 grayscale hover:grayscale-0 transition-all">
 								<span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-									SEC Regulated
+									{t("SEC Regulated")}
 								</span>
 								<span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-									FINRA Member
+									{t("FINRA Member")}
 								</span>
 								<span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-									SIPC Insured
+									{t("SIPC Insured")}
 								</span>
 							</div>
 							<p className="text-xs text-center text-slate-400 dark:text-slate-500 max-w-sm">
-								Trading involves risk. Please ensure you understand all risks
-								before opening an account. TradeZero is a registered
-								broker-dealer.
+								{t("Trading involves risk. Please ensure you understand all risks before opening an account. TradeZero is a registered broker-dealer.")}
 							</p>
 						</div>
 					</div>
@@ -297,17 +295,17 @@ export const RegisterPage = () => {
 				{/* Footer Small */}
 				<footer className="py-10 border-t border-slate-200 dark:border-primary/10">
 					<div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-slate-500 dark:text-slate-400">
-						<span>© 2024 TradeZero America, Inc.</span>
+						<span>{t("© 2024 TradeZero America, Inc.")}</span>
 						<span className="hidden md:inline">•</span>
 						<div className="flex gap-4">
 							<a className="hover:text-primary transition-colors" href="#">
-								Help Center
+								{t("Help Center")}
 							</a>
 							<a className="hover:text-primary transition-colors" href="#">
-								Contact Support
+								{t("Contact Support")}
 							</a>
 							<a className="hover:text-primary transition-colors" href="#">
-								Security
+								{t("Security")}
 							</a>
 						</div>
 					</div>
