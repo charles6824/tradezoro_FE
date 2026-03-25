@@ -1,4 +1,5 @@
 
+import { LanguageSelector } from '@/components/LanguageSelector';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useRegisterMutation } from '@/store/authApi';
@@ -99,6 +100,10 @@ export const RegisterPage = () => {
 						>
 							TradeZero
 						</h2>
+
+            <div className="">
+                          <LanguageSelector />
+                        </div>
 					</div>
 					<div className="flex items-center gap-4">
 						<span className="hidden md:inline text-sm text-slate-500 dark:text-slate-400">
