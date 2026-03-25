@@ -1,3 +1,4 @@
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useLoginMutation } from "@/store/authApi";
@@ -67,6 +68,9 @@ const LoginPage = () => {
 							<h2 className="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight cursor-pointer" onClick={() => navigate("/")}>
 								TradeZero
 							</h2>
+              <div className="">
+							<LanguageSelector />
+						</div>
 						</div>
 						<div className="flex items-center gap-4">
 							<span
