@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MiningSection = () => {
+	const { t } = useTranslation();
 	return (
 		<section className="bg-background-dark text-slate-100 py-16">
 			{/* Hero Section */}
@@ -9,20 +11,20 @@ const MiningSection = () => {
 				<div className="flex flex-wrap items-center">
 					<div className="w-full md:w-1/2 xl:w-7/12 mb-8 md:mb-0">
 						<h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fadeInUp">
-							Start <span className="text-primary-400">Bitcoin</span> <br />
-							Cloud Mining Today
+							{t("Start")} <span className="text-primary-400">{t("Bitcoin")}</span> <br />
+							{t("Cloud Mining Today")}
 						</h1>
 						<p className="text-primary-300 mb-6 animate-fadeInUp">
-							Easy sign-up, fast mining.
+							{t("Easy sign-up, fast mining.")}
 							<br />
-							User-friendly, full uptime, and the best payouts.
+							{t("User-friendly, full uptime, and the best payouts.")}
 						</p>
 						<div className="mb-6 animate-fadeInUp">
 							<Link
 								to="/login"
 								className="inline-block bg-primary text-background-dark font-semibold rounded px-8 py-3 shadow-lg transition"
 							>
-								Start Mining
+								{t("Start Mining")}
 							</Link>
 						</div>
 					</div>
@@ -49,10 +51,10 @@ const MiningSection = () => {
 									className="mx-auto mb-4"
 								/>
 								<h5 className="font-bold mb-2 text-background-dark">
-									Bitcoin <span className="text-primary">BTC</span>
+									{t("Bitcoin")} <span className="text-primary">BTC</span>
 								</h5>
 								<div className="mb-4 text-red-500 font-semibold">
-									Cloud Mining
+									{t("Cloud Mining")}
 								</div>
 								<Link
 									to="/login"
@@ -87,10 +89,10 @@ const MiningSection = () => {
 									className="mx-auto mb-4"
 								/>
 								<h5 className="font-bold mb-2 text-background-dark">
-									Ethereum <span className="text-primary">ETH</span>
+									{t("Ethereum")} <span className="text-primary">ETH</span>
 								</h5>
 								<div className="mb-4 text-red-500 font-semibold">
-									Cloud Mining
+									{t("Cloud Mining")}
 								</div>
 								<Link
 									to="/login"
@@ -124,7 +126,7 @@ const MiningSection = () => {
 									className="mx-auto mb-4"
 								/>
 								<h5 className="font-bold mb-2 text-background-dark">
-									Tether <span className="text-primary">USDT</span>
+									{t("Tether")} <span className="text-primary">USDT</span>
 								</h5>
 								<div className="mb-4 text-green-500 font-semibold">
 									$1 <span className="text-green-400">0%</span>
@@ -173,21 +175,19 @@ const MiningSection = () => {
 						<div className="w-full">
               <div>
                 <div className="mt-4 bg-background-dark text-white md:w-[35%] px-3 py-1 rounded-full inline-block mb-4">
-									<h6 className="font-semibold">Reliable Infrastructure</h6>
+									<h6 className="font-semibold">{t("Reliable Infrastructure")}</h6>
 								</div>
 								<h3 className="text-2xl font-bold mb-4">
-									Welcome to the World's Leading Mining Company:
+									{t("Welcome to the World's Leading Mining Company:")}
 								</h3>
 								<p className="mb-6">
-									We have established partnerships with top companies like
-									Coinbase, Binance, and Bitmain. Join us today to begin mining
-									Bitcoin easily.
+									{t("We have established partnerships with top companies like Coinbase, Binance, and Bitmain. Join us today to begin mining Bitcoin easily.")}
 								</p>
 								<Link
 									to="/login"
 									className="inline-block bg-primary text-background-dark font-semibold rounded-xl px-6 py-2 transition"
 								>
-									Open an Account
+									{t("Open an Account")}
 								</Link>
 							</div>
 						</div>

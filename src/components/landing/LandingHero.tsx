@@ -3,10 +3,12 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Hls from 'hls.js';
 import { ArrowUpRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const LandingHero = () => {
   const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -53,25 +55,25 @@ export const LandingHero = () => {
 
       <div className="relative z-10 max-w-[1000px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
         <h1 className="text-4xl sm:text-5xl md:text-[64px] font-bold leading-[1.1] mb-6 tracking-tight text-white px-2">
-          TradeZero ProScanner.<br />
-          Fast Market Clarity.
+          {t("TradeZero ProScanner.")}<br />
+          {t("Fast Market Clarity.")}
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-slate-200 mb-10 max-w-[800px] leading-relaxed font-medium px-4">
-          ProScanner – a real-time stock scanner, included for free.<br />
-          Build custom scans, filter symbols faster, and focus on the opportunities that match your criteria.
+          {t("ProScanner – a real-time stock scanner, included for free.")}<br />
+          {t("Build custom scans, filter symbols faster, and focus on the opportunities that match your criteria.")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full px-4">
           <button
             className="flex items-center justify-center gap-2 px-8 py-4 sm:py-3.5 rounded-lg bg-[#FF4D00] text-white font-bold text-base sm:text-lg hover:bg-[#e64500] transition-colors w-full sm:w-auto"
             onClick={() => navigate("/register")}
           >
-            Open An Account <ArrowUpRight className="w-5 h-5" />
+            {t("Open An Account")} <ArrowUpRight className="w-5 h-5" />
           </button>
           <button
             className="px-8 py-4 sm:py-3.5 rounded-lg bg-[#00E676] text-[#0A120D] font-bold text-base sm:text-lg hover:bg-[#00c968] transition-colors w-full sm:w-auto"
             onClick={() => window.open("https://t.me/tradezero_group", "_blank")}
           >
-            Live Chat
+            {t("Live Chat")}
           </button>
         </div>
       </div>

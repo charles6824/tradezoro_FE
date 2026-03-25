@@ -1,32 +1,35 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const TZ1Section = () => (
+const TZ1Section = () => {
+  const { t } = useTranslation();
+  return (
   <section className="py-24 bg-background-dark overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row items-center gap-20">
         <div className="lg:w-1/2">
-          <h2 className="text-5xl font-black mb-8 leading-tight">Experience <span className="text-primary">TZ1</span></h2>
-          <p className="text-slate-400 text-lg mb-12">The platform built for performance. TZ1 is our flagship trading software designed for professionals who demand speed, reliability, and precision.</p>
+          <h2 className="text-5xl font-black mb-8 leading-tight">{t("Experience")} <span className="text-primary">TZ1</span></h2>
+          <p className="text-slate-400 text-lg mb-12">{t("The platform built for performance. TZ1 is our flagship trading software designed for professionals who demand speed, reliability, and precision.")}</p>
           <div className="space-y-8">
             <div className="flex items-start gap-4">
               <span className="material-symbols-outlined text-primary text-3xl">bolt</span>
               <div>
-                <h4 className="font-bold text-xl mb-1">Real-Time Tick Scanner</h4>
-                <p className="text-slate-500">Sub-second data feeds for lightning fast decision making.</p>
+                <h4 className="font-bold text-xl mb-1">{t("Real-Time Tick Scanner")}</h4>
+                <p className="text-slate-500">{t("Sub-second data feeds for lightning fast decision making.")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="material-symbols-outlined text-primary text-3xl">show_chart</span>
               <div>
-                <h4 className="font-bold text-xl mb-1">TradingView Chart Integration</h4>
-                <p className="text-slate-500">World-class technical analysis tools built right into your dashboard.</p>
+                <h4 className="font-bold text-xl mb-1">{t("TradingView Chart Integration")}</h4>
+                <p className="text-slate-500">{t("World-class technical analysis tools built right into your dashboard.")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="material-symbols-outlined text-primary text-3xl">swap_calls</span>
               <div>
-                <h4 className="font-bold text-xl mb-1">Bi-Directional Trading</h4>
-                <p className="text-slate-500">Seamlessly switch between long and short positions with hotkeys.</p>
+                <h4 className="font-bold text-xl mb-1">{t("Bi-Directional Trading")}</h4>
+                <p className="text-slate-500">{t("Seamlessly switch between long and short positions with hotkeys.")}</p>
               </div>
             </div>
           </div>
@@ -41,6 +44,7 @@ const TZ1Section = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export { TZ1Section };

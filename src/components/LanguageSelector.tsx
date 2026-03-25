@@ -17,7 +17,8 @@ const languages = [
   { code: 'ar', name: 'العربية', flag: '🇸🇦' },
   { code: 'fa', name: 'فارسی', flag: '🇮🇷' },
   { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' }
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'th', name: 'ไทย', flag: '🇹🇭' }
 ];
 
 export const LanguageSelector = () => {
@@ -41,7 +42,7 @@ export const LanguageSelector = () => {
         >
           <Globe className="w-4 h-4" />
           <span className="">{currentLanguage.flag}</span>
-          <span className="">{currentLanguage.name}</span>
+          <span className="hidden sm:inline-block">{currentLanguage.name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48 bg-card border-border">
