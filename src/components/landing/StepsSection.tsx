@@ -34,7 +34,6 @@ const StepsSection = () => {
         </div>
       </div>
     </div>
-    </div>
   </section>
   );
 };
